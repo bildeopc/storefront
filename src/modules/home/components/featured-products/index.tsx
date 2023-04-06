@@ -11,10 +11,10 @@ const FeaturedProducts = () => {
       <div className="content-container py-12">
         <div className="flex flex-col items-center text-center mb-16">
           <span className="text-base-regular text-gray-600 mb-6">
-            Latest products
+          Latest PC components
           </span>
           <p className="text-2xl-regular text-gray-900 max-w-lg mb-4">
-            Our newest styles are here to help you look your best.
+            Upgrade your rig with our latest arrivals.
           </p>
           <UnderlineLink href="/store">Explore products</UnderlineLink>
         </div>

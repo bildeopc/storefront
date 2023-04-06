@@ -6,16 +6,19 @@ const Hero = () => {
     <div className="h-[90vh] w-full relative">
       <div className="text-white absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:text-left small:justify-end small:items-start small:p-32">
         <h1 className="text-2xl-semi mb-4 drop-shadow-md shadow-black">
-          Summer styles are finally here
+        Build your Dream PC with Ease
         </h1>
         <p className="text-base-regular max-w-[32rem] mb-6 drop-shadow-md shadow-black">
-          This year, our new summer collection will shelter you from the harsh
-          elements of a world that doesn&apos;t care if you live or die.
+        Find all the components you need to create your dream PC. 
+        From processors to graphics cards, we have everything you need to 
+        build a high-performance computer tailored to your needs. 
+        Shop now and start building today!
         </p>
-        <UnderlineLink href="/store">Explore products</UnderlineLink>
+        <UnderlineLink href="/build">START BUILD</UnderlineLink>
+        {/*<UnderlineLink href="/store">START BUILD</UnderlineLink>*/}
       </div>
       <Image
-        src="/hero.jpg"
+        src="/Gaming-Wallpaper.jpg"
         layout="fill"
         loading="eager"
         priority={true}
