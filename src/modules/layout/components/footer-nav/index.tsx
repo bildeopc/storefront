@@ -11,7 +11,7 @@ const FooterNav = () => {
       <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
         <div>
           <Link href="/">
-            <a className="text-xl-semi uppercase">ChipChop</a>
+            <a className="text-xl-semi uppercase">BildeoPC</a>
           </Link>
         </div>
         <div className="text-small-regular grid grid-cols-2 gap-x-16">
@@ -33,7 +33,7 @@ const FooterNav = () => {
           </div>
           
           <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">ChipChop</span>
+            <span className="text-base-semi">BildeoPC</span>
             <ul className="grid grid-cols-1 gap-y-2">
               <li>
                 <Link href="/about">
@@ -83,7 +83,7 @@ const FooterNav = () => {
       </div>
       <div className="flex flex-col-reverse gap-y-4 justify-center xsmall:items-center xsmall:flex-row xsmall:items-end xsmall:justify-between">
         <span className="text-xsmall-regular text-gray-500">
-          © Copyright 2023 ChipChop
+          © Copyright 2023 BildeoPC
         </span>
         <div className="min-w-[316px] flex xsmall:justify-end">
           <CountrySelect />
