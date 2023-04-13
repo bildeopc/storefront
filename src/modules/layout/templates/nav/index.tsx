@@ -8,6 +8,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import styles from './button.module.css';
 
 const Nav = () => {
   const { pathname } = useRouter()
@@ -70,9 +71,28 @@ const Nav = () => {
             </div>
           </div>
 
+          <div>
+          <button className={styles.button}>
+            <Link href="/buildpc">
+            <a>Build PC</a>
+            </Link>
+            </button>
+
+          <Link href="/">
+              <a className="">          Reviews     </a>
+            </Link>
+          </div>
           <div className="flex items-center h-full">
             <Link href="/">
-              <a className="text-xl-semi uppercase">BildeoPC</a>
+              <a className="text-xl-semi uppercase">     BildeoPC     </a>
+            </Link>
+          </div>
+          <div>
+          <Link href="/buynowpaylater">
+              <a className="">     B40?     </a>
+          </Link>
+          <Link href="/about">
+              <a className="">     About Us</a>
             </Link>
           </div>
 
@@ -93,3 +113,4 @@ const Nav = () => {
 }
 
 export default Nav
+

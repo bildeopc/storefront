@@ -18,7 +18,7 @@ const Hero = () => {
         {/*<UnderlineLink href="/store">START BUILD</UnderlineLink>*/}
       </div>
       <Image
-        src="/Gaming-Wallpaper.jpg"
+        src="/Gaming-Wallpaper.jpeg"
         layout="fill"
         loading="eager"
         priority={true}

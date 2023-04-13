@@ -2,21 +2,19 @@ import Head from "@modules/common/components/head";
 import { NextPageWithLayout } from "types/global";
 import { ReactElement } from "react";
 import Layout from "@modules/layout/templates";
-import About from "@modules/about"
+import Build from "@modules/buildpc"
 
-
-const AboutUs: NextPageWithLayout = () => {
+const BuildPC: NextPageWithLayout = () => {
   return (
     <>
-      <Head title="About Us" />
-      <About />
+      <Head title="Build Your PC" />
+
     </>
   )
 }
 
-AboutUs.getLayout = (page: ReactElement) => {
+BuildPC.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default AboutUs;
-
+export default BuildPC;

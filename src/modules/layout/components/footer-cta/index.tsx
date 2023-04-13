@@ -1,7 +1,14 @@
+import { useRouter } from "next/router";
 import UnderlineLink from "@modules/common/components/underline-link"
 import Image from "next/image"
 
 const FooterCTA = () => {
+  const router = useRouter();
+  
+  if (router.pathname === "/buildpc") {
+    return null; // Return null to hide the component if the path is /buildpc
+  }
+  
   return (
     <div className="bg-purple-100 w-full">
       <div className="content-container flex flex-col-reverse gap-y-8 small:flex-row small:items-center justify-between py-16 relative">

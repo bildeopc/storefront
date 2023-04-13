@@ -7,6 +7,7 @@ import { Hydrate } from "@tanstack/react-query"
 import { CartProvider, MedusaProvider } from "medusa-react"
 import "styles/globals.css"
 import { AppPropsWithLayout } from "types/global"
+import "../modules/layout/components/custom-cursor/style.scss";
 
 function App({
   Component,

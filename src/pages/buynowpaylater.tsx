@@ -2,21 +2,19 @@ import Head from "@modules/common/components/head";
 import { NextPageWithLayout } from "types/global";
 import { ReactElement } from "react";
 import Layout from "@modules/layout/templates";
-import About from "@modules/about"
+import PayLater from "@modules/paylater"
 
-
-const AboutUs: NextPageWithLayout = () => {
+const BNPL: NextPageWithLayout = () => {
   return (
     <>
-      <Head title="About Us" />
-      <About />
+      <Head title="BuyNowPayLater" />
+        <PayLater />
     </>
   )
 }
 
-AboutUs.getLayout = (page: ReactElement) => {
+BNPL.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
-export default AboutUs;
-
+export default BNPL;
