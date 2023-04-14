@@ -3,7 +3,7 @@ import CustomCursorContext, {
   CursorLookType,
 } from "../context/CustomCursorContext";
 
-const CustomCursorManager = ({ children }) => {
+const CustomCursorManager = ({ children }:{children: React.ReactNode}) => {
   const [type, setType] = useState<CursorLookType>("default");
 
   return (
