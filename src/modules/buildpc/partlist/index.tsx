@@ -11,6 +11,7 @@ export interface AIresType {
   "Storage size": 1 | 2 | 3
   PSU: 1 | 2 | 3
   RAM: 1 | 2 | 3
+  Mobo: 1 | 2 | 3
   comments: string
 }
 
@@ -20,6 +21,7 @@ const partList = {
   ram: "pcol_01GXZM6ZZCWRA5Y3J0J8YZG6QT",
   psu: "pcol_01GXZM63F3MB7CM0572YW5MWEC",
   gpu: "pcol_01GXRCDGWMF7ENXXMQMVVSEAHN",
+  mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
 }
 
 function getPCPartTypeID(pcPartType: 1 | 2 | 3): string {
@@ -29,7 +31,7 @@ function getPCPartTypeID(pcPartType: 1 | 2 | 3): string {
     3: "ptyp_01GXZNWSZ81FEN6T6YKE40ZK0C",
   }
   if (!partTypeList[pcPartType]) {
-    throw new Error("Invalid pcPartType. Allowed values are: 2, 1, 3.")
+    throw new Error("Invalid pcPartType. Allowed values are: 1,2,3.")
   }
 
   return partTypeList[pcPartType]
@@ -62,6 +64,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () => fetchProduct({ partRating: airesponse.GPU, pcpart: partList.gpu }),
     {
       keepPreviousData: true,
+      enabled: !!CPUQuery.data?.title && !CPUQuery.isFetching, // Check if CPUQuery is not fetching data
     }
   )
 
@@ -74,14 +77,16 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
       }),
     {
       keepPreviousData: true,
+      enabled: !!GPUQuery.data?.title && !GPUQuery.isFetching, // Check if GPUQuery is not fetching data
     }
   )
 
   const PSUQuery = useQuery(
-    [`get_storage_size`, airesponse.PSU],
+    [`get_psu`, airesponse.PSU],
     () => fetchProduct({ partRating: airesponse.PSU, pcpart: partList.psu }),
     {
       keepPreviousData: true,
+      enabled: !!StorageSizeQuery.data?.title && !StorageSizeQuery.isFetching, // Check if StorageSizeQuery is not fetching data
     }
   )
 
@@ -90,34 +95,55 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () => fetchProduct({ partRating: airesponse.RAM, pcpart: partList.ram }),
     {
       keepPreviousData: true,
+      enabled: !!PSUQuery.data?.title && !PSUQuery.isFetching, // Check if PSUQuery is not fetching data
+    }
+  )
+
+  const MoboQuery = useQuery(
+    [`get_Mobo`, airesponse.Mobo],
+    () => fetchProduct({ partRating: airesponse.Mobo, pcpart: partList.mobo }),
+    {
+      keepPreviousData: true,
+      enabled: !!RAMQuery.data?.title && !RAMQuery.isFetching, // Check if RAMQuery is not fetching data
     }
   )
 
   const parts = [
     {
+      id: 1,
       name: CPUQuery.data?.title,
       price: CPUQuery.data?.variants[0]?.prices[0]?.amount,
       image: CPUQuery.data?.thumbnail,
     },
     {
+      id: 2,
       name: GPUQuery.data?.title,
       price: GPUQuery.data?.variants[0]?.prices[0]?.amount,
       image: GPUQuery.data?.thumbnail,
     },
     {
+      id: 3,
       name: StorageSizeQuery.data?.title,
       price: StorageSizeQuery.data?.variants[0]?.prices[0]?.amount,
       image: StorageSizeQuery.data?.thumbnail,
     },
     {
+      id: 4,
       name: PSUQuery.data?.title,
       price: PSUQuery.data?.variants[0]?.prices[0]?.amount,
       image: PSUQuery.data?.thumbnail,
     },
     {
+      id: 5,
       name: RAMQuery.data?.title,
       price: RAMQuery.data?.variants[0]?.prices[0]?.amount,
       image: RAMQuery.data?.thumbnail,
+    },
+    {
+      id: 6,
+      name: MoboQuery.data?.title,
+      price: MoboQuery.data?.variants[0]?.prices[0]?.amount,
+      image: MoboQuery.data?.thumbnail,
     },
   ]
 
@@ -125,7 +151,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     <div className="flex flex-wrap">
       {parts.map((part) => (
         <div
-          key={part.name}
+          key={part.id}
           className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-4"
         >
           <div className="flex flex-row items-center">
@@ -147,7 +173,6 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
                 {part.name ? part.name : "Item not available"}
               </div>
               <div className="text-gray-500">
-                {" "}
                 {part.price
                   ? `RM ${(part.price / 100).toFixed(2)}`
                   : "Price not available"}
