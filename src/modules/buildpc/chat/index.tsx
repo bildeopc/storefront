@@ -100,16 +100,18 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
 
     // prompt
     const data = {
-      prompt: `act as a computer suggester system and print out the evaluation below. choose 1 or 2 or 3
+      prompt: `act as a computer suggester system and print out the evaluation below in JSON. only choose 1=low or 2=mid or 3=high.
       question: ${message}
-      Evaluation (reply in JSON format)
-      1=low,2=med,3=high
-      CPU:1,2,3
-      GPU:1,2,3
-      Storage size:1,2,3
-      PSU:1,2,3
-      RAM;1,2,3
-      comments: (text)`,
+      {
+      "Overall":1,2,3
+      "CPU":1,2,3
+      "GPU":1,2,3
+      "Storage size":1,2,3
+      "PSU":1,2,3
+      "RAM";1,2,3
+      "Mobo":1,2,3
+      "comments": (your explaination)
+      }`,
     }
 
     axios
