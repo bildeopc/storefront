@@ -81,8 +81,6 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
     }
   }, [isButtonDisabled])
 
-  //
-
   const handleSendMessage = (message: string) => {
     // disable button and prevent abuse
     handleButtonClick()
@@ -90,6 +88,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
       ...prevMessages,
       { sender: "user", message },
     ])
+    
     // Simulate AI's response after 1 second
     // setTimeout(() => {
     //   setMessages((prevMessages) => [
@@ -112,25 +111,33 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
       comments: (text)`,
     }
 
-    axios
-      .post("/api/openapi", data)
-      .then((response) => {
-        console.log("Response:", response.data)
-        const responseData: TextCompletionResponse = response.data
+    // Send a POST request to the "/api/openapi" endpoint with the given data
+  axios
+    .post("/api/openapi", data)
+    .then((response) => {
+      // If the request is successful, log the response data to the console
+      console.log("Response:", response.data);
 
-        const responseObject = JSON.parse(responseData.data.choices[0].text)
+      // Parse the response data as a TextCompletionResponse object
+      const responseData: TextCompletionResponse = response.data;
 
-        setAiResData(responseObject)
+      // Parse the text of the first choice in the response data's choices array as a JSON object
+      const responseObject = JSON.parse(responseData.data.choices[0].text);
 
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: "ai", message: responseObject?.comments },
-        ])
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-        // Handle any errors that occurred during the request
-      })
+      // Set the AI response data state to the parsed JSON object
+      setAiResData(responseObject);
+
+      // Add a new message object to the messages state, with "ai" as the sender and the parsed comments as the message text
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "ai", message: responseObject?.comments },
+      ]);
+    })
+    .catch((error) => {
+      // If there was an error with the request, log the error to the console
+      console.error("Error:", error);
+      // could add additional error handling code here
+    })
   }
 
   useEffect(() => {
@@ -168,16 +175,21 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
           ))}
         </div>
         <form
-          className="flex items-center"
-          onSubmit={(e) => {
-            e.preventDefault()
-            const input = e.currentTarget.message
-            if (input.value !== "") {
-              handleSendMessage(input.value)
-              input.value = ""
-            }
-          }}
-        >
+            className="flex items-center"
+            onSubmit={(e) => {
+              // Prevent the default form submission behavior
+              e.preventDefault()
+              // Get the input element from the form
+              const input = e.currentTarget.message
+              // Check if the input value is not an empty string
+              if (input.value !== "") {
+                // Call the handleSendMessage function and pass it the input value
+                handleSendMessage(input.value)
+                // Clear the input element by setting its value to an empty string
+                input.value = ""
+              }
+            }}
+          >
           <input
             type="text"
             name="message"
