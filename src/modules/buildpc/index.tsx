@@ -1,52 +1,57 @@
 import React, { useState } from "react"
-import { AIresType } from "@modules/partlist"
+import Evaluate from "@modules/buildpc/evaluation"
+import Chat from "@modules/buildpc/chat"
+import Partlist, { AIresType } from "@modules/buildpc/partlist"
 
-type BuildpcProps = {
-  airesponse: AIresType
-  setAiResData: React.Dispatch<React.SetStateAction<AIresType>>
-}
-
-const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
-  const handleSliderChange = (
-    key: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setAiResData((prevAiResData) => ({
-      ...prevAiResData,
-      [key]: Number(event.target.value),
-    }))
-  }
-
-  return (
-    <div className="w-full max-w-sm mx-auto p-4 pt-0">
-      <h2 className="text-xl font-bold mb-2">Computer Evaluation</h2>
-      <h3 className="text-sm mb-4">Fine tune your results</h3>
-      {Object.entries(airesponse).map(([key, value]) => {
-        if (key !== "comments")
-          return (
-            <div className="mb-4" key={key}>
-              <label
-                htmlFor={`${key}Slider`}
-                className="block text-sm font-medium text-gray-700"
-              >
-                {key}:
-              </label>
-              <input
-                type="range"
-                id={`${key}Slider`}
-                name={key}
-                className="slider accent-primary w-full"
-                min="1"
-                max="3"
-                value={value}
-                onChange={(event) => handleSliderChange(key, event)}
-                disabled={key === "Overall"}
-              />
+const BuildPC = () => {
+    const [messages, setMessages] = useState([
+      { sender: "ai", message: "Hello! How can I help you?" },
+      // { sender: "user", message: "Hi! I have a question about my account." }
+    ])
+  
+    const [aiResData, setAiResData] = useState<AIresType>({
+      Overall: 1,
+      CPU: 2,
+      GPU: 1,
+      "Storage size": 1,
+      PSU: 1,
+      RAM: 1,
+      comments: "",
+    })
+  
+    return (
+      <>
+   
+        <div className="p-6">
+          <h1 className="text-4xl font-bold mb-2">
+            Build Your PC with the Help of Powerful AI
+          </h1>
+          <p className="text-lg text-gray-500">
+            Create your dream PC with our helpful AI companion.
+          </p>
+        </div>
+        <div className="p-6 flex flex-wrap">
+          <div className="w-full lg:w-1/4">
+            <Chat
+              messages={messages}
+              setMessages={setMessages}
+              setAiResData={setAiResData}
+            />
+          </div>
+          <div className="w-full lg:w-3/4 flex flex-wrap">
+            <div className="w-full lg:w-1/2">
+              <Evaluate airesponse={aiResData} setAiResData={setAiResData} />
             </div>
-          )
-      })}
-    </div>
-  )
-}
-
-export default Buildpc
+            <div className="w-full lg:w-1/2">
+              <h2 className="text-xl font-bold mb-2">
+                Your AI recommended build
+              </h2>
+              <Partlist airesponse={aiResData} />
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+  
+  export default BuildPC

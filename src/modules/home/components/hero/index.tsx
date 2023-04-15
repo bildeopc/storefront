@@ -14,7 +14,7 @@ const Hero = () => {
         build a high-performance computer tailored to your needs. 
         Shop now and start building today!
         </p>
-        <UnderlineLink href="/build">START BUILD</UnderlineLink>
+        <UnderlineLink href="/buildpc">START BUILD</UnderlineLink>
         {/*<UnderlineLink href="/store">START BUILD</UnderlineLink>*/}
       </div>
       <Image

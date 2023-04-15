@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react"
 import axios from "axios"
-import { AIresType } from "@modules/partlist"
+import { AIresType } from "@modules/buildpc/partlist"
 
 interface TextCompletionData {
   id: string

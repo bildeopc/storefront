@@ -89,7 +89,7 @@ const Nav = () => {
           </div>
           <div>
           <Link href="/buynowpaylater">
-              <a className="px-6 hidden md:inline-block">B40?</a>
+              <a className="px-6 hidden md:inline-block">PayLater</a>
           </Link>
           <Link href="/about">
               <a className="px-6 hidden md:inline-block">About Us</a>

@@ -61,7 +61,7 @@ const CartDropdown = () => {
                               <div>
                                 <h3 className="text-base-regular overflow-ellipsis overflow-hidden whitespace-nowrap mr-4 w-[130px]">
                                   <Link
-                                    href={`/products/${item.variant.product.handle}`}
+                                    href={`/store/${item.variant.product.handle}`}
                                   >
                                     <a>{item.title}</a>
                                   </Link>

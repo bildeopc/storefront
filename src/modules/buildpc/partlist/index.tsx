@@ -66,7 +66,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
   )
 
   const StorageSizeQuery = useQuery(
-    [`get_storage_size`, airesponse["Storage size"]],
+    [`get_psu`, airesponse["Storage size"]],
     () =>
       fetchProduct({
         partRating: airesponse["Storage size"],
@@ -86,7 +86,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
   )
 
   const RAMQuery = useQuery(
-    [`get_storage_size`, airesponse.RAM],
+    [`get_memory`, airesponse.RAM],
     () => fetchProduct({ partRating: airesponse.RAM, pcpart: partList.ram }),
     {
       keepPreviousData: true,

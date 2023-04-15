@@ -44,6 +44,7 @@ const CountrySelect = () => {
   return (
     <div onMouseEnter={open} onMouseLeave={close}>
       <Listbox
+      disabled
         onChange={handleChange}
         defaultValue={
           countryCode
@@ -69,7 +70,7 @@ const CountrySelect = () => {
             )}
           </div>
         </Listbox.Button>
-        <div className="relative w-full min-w-[316px]">
+        {/*<div className="relative w-full min-w-[316px]">
           <Transition
             show={state}
             as={Fragment}
@@ -103,6 +104,7 @@ const CountrySelect = () => {
             </Listbox.Options>
           </Transition>
         </div>
+        */}
       </Listbox>
     </div>
   )
