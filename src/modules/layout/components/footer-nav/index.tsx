@@ -16,9 +16,9 @@ const FooterNav = () => {
         </div>
         <div className="text-small-regular grid grid-cols-2 gap-x-16">
           <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Collections</span>
+            <span className="text-base-semi">Components</span>
             <ul
-              className={clsx("grid grid-cols-1 gap-y-2", {
+              className={clsx("grid grid-cols-1 gap-x-8 gap-y-2", {
                 "grid-cols-2": (collections?.length || 0) > 4,
               })}
             >

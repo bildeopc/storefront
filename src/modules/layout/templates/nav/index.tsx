@@ -72,27 +72,27 @@ const Nav = () => {
           </div>
 
           <div>
-          <button className={styles.button}>
+          <button className={`${styles.button} hidden md:inline-block`}>
             <Link href="/buildpc">
             <a>Build PC</a>
             </Link>
             </button>
 
           <Link href="/">
-              <a className="">          Reviews     </a>
+              <a className="px-6 hidden md:inline-block">Reviews</a>
             </Link>
           </div>
           <div className="flex items-center h-full">
             <Link href="/">
-              <a className="text-xl-semi uppercase">     BildeoPC     </a>
+              <a className="text-xl-semi uppercase">BildeoPC</a>
             </Link>
           </div>
           <div>
           <Link href="/buynowpaylater">
-              <a className="">     B40?     </a>
+              <a className="px-6 hidden md:inline-block">B40?</a>
           </Link>
           <Link href="/about">
-              <a className="">     About Us</a>
+              <a className="px-6 hidden md:inline-block">About Us</a>
             </Link>
           </div>
 

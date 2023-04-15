@@ -60,7 +60,7 @@ const DropdownMenu = () => {
                   <div className="flex items-start content-container">
                     <div className="flex flex-col flex-1 max-w-[30%]">
                       <h3 className="text-base-semi text-gray-900 mb-4">
-                        Collections
+                        Components
                       </h3>
                       <div className="flex items-start">
                         {collections &&

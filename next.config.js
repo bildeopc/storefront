@@ -9,6 +9,7 @@ module.exports = withStoreConfig({
       "medusa-public-images.s3.eu-west-1.amazonaws.com",
       "localhost",
       "api-minio.lawcloud.page",
+      "cdn.discordapp.com",
     ],
   },
 })
