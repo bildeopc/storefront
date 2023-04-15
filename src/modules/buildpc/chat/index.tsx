@@ -88,7 +88,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
       ...prevMessages,
       { sender: "user", message },
     ])
-    
+
     // Simulate AI's response after 1 second
     // setTimeout(() => {
     //   setMessages((prevMessages) => [
@@ -162,7 +162,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
                     : "text-left text-gray-600"
                 }`}
               >
-                {msg.sender === "user" ? "You" : "AI"}
+                {msg.sender === "user" ? "You" : "Lyra"}
               </span>
               <span
                 className={`${

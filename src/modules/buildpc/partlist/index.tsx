@@ -5,13 +5,13 @@ import Image from "next/image"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 
 export interface AIresType {
-  Overall: 1 | 2 | 3
-  CPU: 1 | 2 | 3
-  GPU: 1 | 2 | 3
-  "Storage size": 1 | 2 | 3
-  PSU: 1 | 2 | 3
-  RAM: 1 | 2 | 3
-  Mobo: 1 | 2 | 3
+  Overall: 0 | 1 | 2 | 3
+  CPU:  0 | 1 | 2 | 3
+  GPU: 0 | 1 | 2 | 3
+  "Storage size": 0 | 1 | 2 | 3
+  PSU: 0 | 1 | 2 | 3
+  RAM: 0 | 1 | 2 | 3
+  Mobo: 0 | 1 | 2 | 3
   comments: string
 }
 
@@ -24,8 +24,9 @@ const partList = {
   mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
 }
 
-function getPCPartTypeID(pcPartType: 1 | 2 | 3): string {
+function getPCPartTypeID(pcPartType: 0 | 1 | 2 | 3): string {
   const partTypeList = {
+    0: "",
     1: "ptyp_01GY0BPNTNMGB92ZSPHGBQS2X2",
     2: "ptyp_01GY0BYZNYTXFXBWXC6HK7CY66",
     3: "ptyp_01GXZNWSZ81FEN6T6YKE40ZK0C",
@@ -41,7 +42,7 @@ const fetchProduct = async ({
   partRating,
   pcpart,
 }: {
-  partRating: 1 | 2 | 3
+  partRating: 0 | 1 | 2 | 3
   pcpart: string
 }) => {
   return await medusaClient.products
@@ -64,7 +65,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () => fetchProduct({ partRating: airesponse.GPU, pcpart: partList.gpu }),
     {
       keepPreviousData: true,
-      enabled: !!CPUQuery.data?.title && !CPUQuery.isFetching, // Check if CPUQuery is not fetching data
+      enabled: !CPUQuery.isFetching, // Check if CPUQuery is not fetching data
     }
   )
 
@@ -77,7 +78,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
       }),
     {
       keepPreviousData: true,
-      enabled: !!GPUQuery.data?.title && !GPUQuery.isFetching, // Check if GPUQuery is not fetching data
+      enabled: !GPUQuery.isFetching, // Check if GPUQuery is not fetching data
     }
   )
 
@@ -86,16 +87,16 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () => fetchProduct({ partRating: airesponse.PSU, pcpart: partList.psu }),
     {
       keepPreviousData: true,
-      enabled: !!StorageSizeQuery.data?.title && !StorageSizeQuery.isFetching, // Check if StorageSizeQuery is not fetching data
+      enabled: !StorageSizeQuery.isFetching, // Check if StorageSizeQuery is not fetching data
     }
   )
 
   const RAMQuery = useQuery(
-    [`get_storage_size`, airesponse.RAM],
+    [`get_memory`, airesponse.RAM],
     () => fetchProduct({ partRating: airesponse.RAM, pcpart: partList.ram }),
     {
       keepPreviousData: true,
-      enabled: !!PSUQuery.data?.title && !PSUQuery.isFetching, // Check if PSUQuery is not fetching data
+      enabled: !PSUQuery.isFetching, // Check if PSUQuery is not fetching data
     }
   )
 
@@ -104,7 +105,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () => fetchProduct({ partRating: airesponse.Mobo, pcpart: partList.mobo }),
     {
       keepPreviousData: true,
-      enabled: !!RAMQuery.data?.title && !RAMQuery.isFetching, // Check if RAMQuery is not fetching data
+      enabled: !RAMQuery.isFetching, // Check if RAMQuery is not fetching data
     }
   )
 

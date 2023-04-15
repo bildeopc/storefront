@@ -8,19 +8,19 @@ const BuildPC = () => {
     {
       sender: "ai",
       message:
-        "Hey! I'm here to help. Tell me what you're looking for in your computer, and we'll get started!",
+        "Hi there! Let me know what you want in your computer, and we'll get started creating the perfect one for you!",
     },
     // { sender: "user", message: "Hi! I have a question about my account." }
   ])
 
   const [aiResData, setAiResData] = useState<AIresType>({
-    Overall: 1,
-    CPU: 1,
-    GPU: 1,
-    "Storage size": 1,
-    PSU: 1,
-    RAM: 1,
-    Mobo: 1,
+    Overall: 3,
+    CPU: 0,
+    GPU: 0,
+    "Storage size": 0,
+    PSU: 0,
+    RAM: 0,
+    Mobo: 0,
     comments: "",
   })
 
@@ -31,7 +31,7 @@ const BuildPC = () => {
           Build Your PC with the Help of Powerful AI
         </h1>
         <p className="text-lg text-gray-500">
-          Create your dream PC with our helpful AI companion.
+          Create your dream PC with Lyra your companion.
         </p>
       </div>
       <div className="p-6 flex flex-wrap">

@@ -14,15 +14,16 @@
   mix-blend-mode: difference;
 
   .main-cursor-background {
-    width: 30px;
-    height: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: #6A67CE;
     border-radius: 50%;
   }
 }
 
 .secondary-cursor {
-  width: 70px;
-  height: 70px;
+  width: 20px;
+  height: 20px;
 
   .cursor-background {
     width: 100%;
