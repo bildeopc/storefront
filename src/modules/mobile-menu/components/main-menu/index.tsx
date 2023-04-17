@@ -26,15 +26,6 @@ const MainMenu = () => {
   return (
     <div className="flex flex-col flex-1">
       <div className="flex items-center justify-between w-full border-b border-gray-200 py-4 px-6">
-        <div className="flex-1 basis-0">
-          <button
-            className="flex items-center gap-x-2"
-            onClick={setScreenCountry}
-          >
-            <ReactCountryFlag countryCode={countryCode || "us"} svg />
-            <ChevronDown />
-          </button>
-        </div>
         <div>
           <h1 className="text-xl-semi uppercase">BildeoPC</h1>
         </div>
@@ -61,6 +52,34 @@ const MainMenu = () => {
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
             <li className="bg-gray-50 p-4">
+              <Link href="/">
+                <a>
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={close}
+                  >
+                    <span className="sr-only">Go Home</span>
+                    <span>Home</span>
+                    <ChevronDown className="-rotate-90" />
+                  </button>
+                </a>
+              </Link>
+            </li>
+            <li className="bg-gray-50 p-4">
+              <Link href="/buildpc">
+                <a>
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={close}
+                  >
+                    <span className="sr-only">Build your PC</span>
+                    <span>Build PC</span>
+                    <ChevronDown className="-rotate-90" />
+                  </button>
+                </a>
+              </Link>
+            </li>
+            <li className="bg-gray-50 p-4">
               <Link href="/store">
                 <a>
                   <button
@@ -68,7 +87,7 @@ const MainMenu = () => {
                     onClick={close}
                   >
                     <span className="sr-only">Go to Store</span>
-                    <span>Store</span>
+                    <span>Main Store</span>
                     <ChevronDown className="-rotate-90" />
                   </button>
                 </a>
@@ -134,7 +153,7 @@ const MainMenu = () => {
                 </Link>
               </div>
             )}
-            <div className="flex flex-col gap-y-4">
+            {/* <div className="flex flex-col gap-y-4">
               <span className="text-gray-700 uppercase">Delivery</span>
               <button
                 className="flex items-center justify-between border-b border-gray-200 py-2"
@@ -152,7 +171,7 @@ const MainMenu = () => {
                 </div>
                 <ChevronDown className="-rotate-90" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

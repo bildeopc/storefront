@@ -2,6 +2,7 @@ import clsx from "clsx"
 import { useCollections } from "medusa-react"
 import Link from "next/link"
 import CountrySelect from "../country-select"
+import Image from "next/image"
 
 const FooterNav = () => {
   const { collections } = useCollections()
@@ -11,8 +12,19 @@ const FooterNav = () => {
       <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
         <div>
           <Link href="/">
-            <a className="text-xl-semi uppercase">BildeoPC</a>
+            <a className="text-xl-semi uppercase text-primary ">BildeoPC_</a>
           </Link>
+          <br />
+          <div className="pt-3">
+            <Image
+              src={
+                "https://cdn.discordapp.com/attachments/811231774327177326/1095026021654351974/BildeoPC_logo_2.png"
+              }
+              alt="BildeoPC logo"
+              width={100}
+              height={100}
+            />
+          </div>
         </div>
         <div className="text-small-regular grid grid-cols-2 gap-x-16">
           <div className="flex flex-col gap-y-2">
@@ -31,7 +43,7 @@ const FooterNav = () => {
               ))}
             </ul>
           </div>
-          
+
           <div className="flex flex-col gap-y-2">
             <span className="text-base-semi">BildeoPC</span>
             <ul className="grid grid-cols-1 gap-y-2">
@@ -81,7 +93,7 @@ const FooterNav = () => {
               </div>*/}
         </div>
       </div>
-      <div className="flex flex-col-reverse gap-y-4 justify-center xsmall:items-center xsmall:flex-row xsmall:items-end xsmall:justify-between">
+      <div className="flex flex-col-reverse gap-y-4 justify-center xsmall:flex-row xsmall:items-end xsmall:justify-between">
         <span className="text-xsmall-regular text-gray-500">
           © Copyright 2023 BildeoPC
         </span>

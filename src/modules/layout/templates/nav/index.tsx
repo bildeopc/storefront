@@ -8,7 +8,6 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import styles from './button.module.css';
 
 const Nav = () => {
   const { pathname } = useRouter()
@@ -70,15 +69,14 @@ const Nav = () => {
               <DropdownMenu />
             </div>
           </div>
-
           <div>
-          <button className={`${styles.button} hidden md:inline-block`}>
-            <Link href="/buildpc">
-            <a>Build PC</a>
+            <Link href="/buildpc" passHref>
+              <button className="hidden md:inline-block bg-indigo-600 text-white text-xs font-semibold uppercase py-2 px-4 rounded-lg transition duration-200 ease-in-out border border-indigo-600 hover:bg-white hover:text-indigo-600 hover:border-indigo-600">
+                <a>Build PC</a>
+              </button>
             </Link>
-            </button>
 
-          <Link href="/">
+            <Link href="/">
               <a className="px-6 hidden md:inline-block">Reviews</a>
             </Link>
           </div>
@@ -88,10 +86,10 @@ const Nav = () => {
             </Link>
           </div>
           <div>
-          <Link href="/buynowpaylater">
+            <Link href="/buynowpaylater">
               <a className="px-6 hidden md:inline-block">PayLater</a>
-          </Link>
-          <Link href="/about">
+            </Link>
+            <Link href="/about">
               <a className="px-6 hidden md:inline-block">About Us</a>
             </Link>
           </div>
@@ -113,4 +111,3 @@ const Nav = () => {
 }
 
 export default Nav
-

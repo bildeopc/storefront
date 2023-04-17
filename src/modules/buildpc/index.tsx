@@ -43,14 +43,16 @@ const BuildPC = () => {
           />
         </div>
         <div className="w-full lg:w-3/4 flex flex-wrap">
-          <div className="w-full lg:w-1/2">
+          <div className="pt-10 lg:pt-0 w-full lg:w-1/2">
             <Evaluate airesponse={aiResData} setAiResData={setAiResData} />
           </div>
           <div className="w-full lg:w-1/2">
-            <h2 className="text-xl font-bold mb-2">
-              Your AI recommended build
-            </h2>
-            <Partlist airesponse={aiResData} />
+            <div className="w-full max-w-sm mx-auto ">
+              <h2 className="text-xl font-bold mb-2">
+                Your AI recommended build
+              </h2>
+              <Partlist airesponse={aiResData} />
+            </div>
           </div>
         </div>
       </div>

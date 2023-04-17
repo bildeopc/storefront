@@ -6,7 +6,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 
 export interface AIresType {
   Overall: 0 | 1 | 2 | 3
-  CPU:  0 | 1 | 2 | 3
+  CPU: 0 | 1 | 2 | 3
   GPU: 0 | 1 | 2 | 3
   "Storage size": 0 | 1 | 2 | 3
   PSU: 0 | 1 | 2 | 3
@@ -151,10 +151,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
   return (
     <div className="flex flex-wrap">
       {parts.map((part) => (
-        <div
-          key={part.id}
-          className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-4"
-        >
+        <div key={part.id} className="w-full  lg:w-1/2 xl:w-1/2 p-4">
           <div className="flex flex-row items-center">
             <div className="w-12 h-12 flex-shrink-0">
               <Image
