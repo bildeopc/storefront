@@ -14,7 +14,7 @@ const BuildPC = () => {
   ])
 
   const [aiResData, setAiResData] = useState<AIresType>({
-    Overall: 3,
+    Overall: 2,
     CPU: 0,
     GPU: 0,
     "Storage size": 0,
