@@ -150,7 +150,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
 
   return (
     <div className="w-full max-w-sm mx-auto">
-      <h2 className="text-xl font-bold mb-2">Your AI companion</h2>
+      <h2 className="text-xl font-bold mb-2">Your AI Sidekick</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
         <div ref={chatContainerRef} className="h-80 overflow-y-auto mb-4">
           {messages.map((msg, index) => (
@@ -162,7 +162,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
                     : "text-left text-gray-600"
                 }`}
               >
-                {msg.sender === "user" ? "You" : "Lyra"}
+                {msg.sender === "user" ? "You" : "Stella"}
               </span>
               <span
                 className={`${

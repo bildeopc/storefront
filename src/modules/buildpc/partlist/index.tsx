@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from "querystring"
 import Image from "next/image"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 
+// Define the interface for the AI response object
 export interface AIresType {
   Overall: 0 | 1 | 2 | 3
   CPU: 0 | 1 | 2 | 3
@@ -15,6 +16,7 @@ export interface AIresType {
   comments: string
 }
 
+// Define an object containing collection IDs for each PC part type
 const partList = {
   cpu: "pcol_01GXZM5QATSXZC9GKDJ7RM4Y9V",
   storage: "pcol_01GXZM7TGB0EY5SD369Q0E27QG",
@@ -24,6 +26,7 @@ const partList = {
   mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
 }
 
+// Define a function to get the PC part type ID based on a given rating, 1 = low end, 2 = mid end, 3 = high end
 function getPCPartTypeID(pcPartType: 0 | 1 | 2 | 3): string {
   const partTypeList = {
     0: "",
@@ -31,13 +34,17 @@ function getPCPartTypeID(pcPartType: 0 | 1 | 2 | 3): string {
     2: "ptyp_01GY0BYZNYTXFXBWXC6HK7CY66",
     3: "ptyp_01GXZNWSZ81FEN6T6YKE40ZK0C",
   }
+
+  // Throw an error if an invalid rating is provided
   if (!partTypeList[pcPartType]) {
     throw new Error("Invalid pcPartType. Allowed values are: 1,2,3.")
   }
 
+  // Return the corresponding type ID
   return partTypeList[pcPartType]
 }
 
+// Define an asynchronous function to fetch a product based on a given rating and collection ID
 const fetchProduct = async ({
   partRating,
   pcpart,
@@ -45,6 +52,7 @@ const fetchProduct = async ({
   partRating: 0 | 1 | 2 | 3
   pcpart: string
 }) => {
+  // Use the Medusa client to list products matching the given type and collection IDs, and return the first product
   return await medusaClient.products
     .list({ type_id: [getPCPartTypeID(partRating)], collection_id: [pcpart] })
     .then(({ products }) => products[0])
@@ -111,40 +119,46 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
 
   const parts = [
     {
+      // Define the CPU part object
       id: 1,
-      name: CPUQuery.data?.title,
-      price: CPUQuery.data?.variants[0]?.prices[0]?.amount,
-      image: CPUQuery.data?.thumbnail,
+      name: CPUQuery.data?.title, // Get the CPU name from the query result
+      price: CPUQuery.data?.variants[0]?.prices[0]?.amount, // Get the CPU price from the query result
+      image: CPUQuery.data?.thumbnail, // Get the CPU image from the query result
     },
     {
+      // Define the GPU part object
       id: 2,
-      name: GPUQuery.data?.title,
-      price: GPUQuery.data?.variants[0]?.prices[0]?.amount,
-      image: GPUQuery.data?.thumbnail,
+      name: GPUQuery.data?.title, // Get the GPU name from the query result
+      price: GPUQuery.data?.variants[0]?.prices[0]?.amount, // Get the GPU price from the query result
+      image: GPUQuery.data?.thumbnail, // Get the GPU image from the query result
     },
     {
+      // Define the storage size part object
       id: 3,
-      name: StorageSizeQuery.data?.title,
-      price: StorageSizeQuery.data?.variants[0]?.prices[0]?.amount,
-      image: StorageSizeQuery.data?.thumbnail,
+      name: StorageSizeQuery.data?.title, // Get the storage size name from the query result
+      price: StorageSizeQuery.data?.variants[0]?.prices[0]?.amount, // Get the storage size price from the query result
+      image: StorageSizeQuery.data?.thumbnail, // Get the storage size image from the query result
     },
     {
+      // Define the PSU part object
       id: 4,
-      name: PSUQuery.data?.title,
-      price: PSUQuery.data?.variants[0]?.prices[0]?.amount,
-      image: PSUQuery.data?.thumbnail,
+      name: PSUQuery.data?.title, // Get the PSU name from the query result
+      price: PSUQuery.data?.variants[0]?.prices[0]?.amount, // Get the PSU price from the query result
+      image: PSUQuery.data?.thumbnail, // Get the PSU image from the query result
     },
     {
+      // Define the RAM part object
       id: 5,
-      name: RAMQuery.data?.title,
-      price: RAMQuery.data?.variants[0]?.prices[0]?.amount,
-      image: RAMQuery.data?.thumbnail,
+      name: RAMQuery.data?.title, // Get the RAM name from the query result
+      price: RAMQuery.data?.variants[0]?.prices[0]?.amount, // Get the RAM price from the query result
+      image: RAMQuery.data?.thumbnail, // Get the RAM image from the query result
     },
     {
+      // Define the motherboard part object
       id: 6,
-      name: MoboQuery.data?.title,
-      price: MoboQuery.data?.variants[0]?.prices[0]?.amount,
-      image: MoboQuery.data?.thumbnail,
+      name: MoboQuery.data?.title, // Get the motherboard name from the query result
+      price: MoboQuery.data?.variants[0]?.prices[0]?.amount, // Get the motherboard price from the query result
+      image: MoboQuery.data?.thumbnail, // Get the motherboard image from the query result
     },
   ]
 

@@ -14,7 +14,7 @@ const Head: React.FC<HeadProps> = ({ title, description, image }) => {
       <meta itemProp="name" content={title} />
       {description && <meta itemProp="description" content={description} />}
       {image && <meta itemProp="image" content={image} />}
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="https://cdn.discordapp.com/attachments/419121329447632902/1097232141957468160/efef.png" />
     </NextHead>
   )
 }

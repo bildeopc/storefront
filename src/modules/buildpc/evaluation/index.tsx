@@ -23,8 +23,8 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
 
   return (
     <div className="w-full max-w-sm mx-auto p-4 pt-0">
-      <h2 className="text-xl font-bold mb-2">Computer Evaluation</h2>
-      <h3 className="text-sm mb-4">Fine tune your results</h3>
+      <h2 className="text-xl font-bold mb-2">Customize Your Recommendations</h2>
+      <h3 className="text-sm mb-4">Refine Your Results</h3>
 
       <div className="mb-4">
         <label
@@ -64,8 +64,11 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
         <span className="text-sm font-medium text-gray-700">Nice</span>
       </div>
       {Object.entries(airesponse).map(([key, value]) => {
+        // Check if the key is not "comments" or "Overall"
         if (key !== "comments" && key !== "Overall") {
+          // Check if the value is 0
           if (value === 0) {
+            // If value is 0, render a disabled slider with 0.5 opacity
             return (
               <div className="mb-4" key={key}>
                 <label
@@ -89,6 +92,7 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
               </div>
             )
           } else {
+            // If value is not 0, render a regular slider
             return (
               <div className="mb-4" key={key}>
                 <label
