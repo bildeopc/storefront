@@ -17,4 +17,4 @@ jobs:
           USERNAME: ${{ secrets.JENKINS_USERNAME }} # Retrieve Jenkins username from secret
           TOKEN: ${{ secrets.JENKINS_TOKEN }} # Retrieve Jenkins token from secret
         run: |
-          curl -X POST "$JENKINS_URL/job/medusa/buildWithParameters?token=$TOKEN_NAME" --user "$USERNAME:$TOKEN"
+          curl -X GET "$JENKINS_URL/job/medusa/buildWithParameters?token=$TOKEN_NAME" --user "$USERNAME:$TOKEN"
