@@ -1,0 +1,18 @@
+name: Trigger Jenkins Build
+
+on:
+  push:
+    branches:
+      - main # Replace with your desired branch name
+
+jobs:
+  trigger_build:
+    runs-on: ubuntu-latest # Replace with your desired runner platform
+
+    steps:
+      - name: Send Webhook to Jenkins
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }} # Retrieve Jenkins URL from secret
+          TOKEN_NAME: ${{ secrets.JENKINS_TOKEN_NAME }} # Retrieve Jenkins token name from secret
+        run: |
+          curl -X POST "$JENKINS_URL/job/medusa/build?token=$TOKEN_NAME"
