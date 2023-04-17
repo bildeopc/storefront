@@ -14,7 +14,7 @@ const BuildPC = () => {
     // { sender: "user", message: "Hi! I have a question about my account." }
   ])
   const [aiResData, setAiResData] = useState<AIresType>({
-    Overall: 0,
+    Overall: 1,
     CPU: 0,
     GPU: 0,
     "Storage size": 0,
