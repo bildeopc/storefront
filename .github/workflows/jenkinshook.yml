@@ -3,7 +3,7 @@ name: Trigger Jenkins Build
 on:
   push:
     branches:
-      - chipchop # Replace with your desired branch name
+      - disable # Replace with your desired branch name
 
 jobs:
   trigger_build:
