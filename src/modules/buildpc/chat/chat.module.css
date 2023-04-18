@@ -1,0 +1,12 @@
+
+
+.customscroll{
+    height: 20rem;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.customscroll::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent;
+  }

@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 
+import style from './cursor.module.scss'
+
 import CustomCursorContext from "./context/CustomCursorContext";
 
-const CustomCursor = () => {
+const CustomCursorWraper= ()=>{
+
   const { type } = useContext(CustomCursorContext);
   const secondaryCursor = React.useRef(null);
   const mainCursor = React.useRef(null);
@@ -17,23 +20,36 @@ const CustomCursor = () => {
   });
 
   React.useEffect(() => {
-    document.addEventListener("mousemove", (event) => {
-      const { clientX, clientY } = event;
+    const handleMouseMove = (event) => { // Move the event handler function here
+        const { clientX, clientY } = event;
 
-      const mouseX = clientX;
-      const mouseY = clientY;
+        const mouseX = clientX;
+        const mouseY = clientY;
+        const secondaryCursorRef = secondaryCursor.current; // Get a reference to secondaryCursor element
 
-      positionRef.current.mouseX =
-        mouseX - secondaryCursor.current.clientWidth / 2;
-      positionRef.current.mouseY =
-        mouseY - secondaryCursor.current.clientHeight / 2;
-      mainCursor.current.style.transform = `translate3d(${mouseX -
-        mainCursor.current.clientWidth / 2}px, ${mouseY -
-        mainCursor.current.clientHeight / 2}px, 0)`;
-    });
+        if (secondaryCursorRef) { // Null check
+            positionRef.current.mouseX =
+                mouseX - (secondaryCursorRef.clientWidth || 0) / 2;
+            positionRef.current.mouseY =
+                mouseY - (secondaryCursorRef.clientHeight || 0) / 2;
+        }
 
-    return () => {};
-  }, []);
+        const mainCursorRef = mainCursor.current; // Get a reference to mainCursor element
+
+        if (mainCursorRef) { // Null check
+            mainCursorRef.style.transform = `translate3d(${mouseX -
+                (mainCursorRef.clientWidth || 0) / 2}px, ${mouseY -
+                (mainCursorRef.clientHeight || 0) / 2}px, 0)`;
+        }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove); // Attach the event listener with the updated event handler function
+
+    return () => {
+        // Clean up event listener
+        document.removeEventListener("mousemove", handleMouseMove); // Remove the event listener with the updated event handler function
+    };
+}, []);
 
   React.useEffect(() => {
     const followMouse = () => {
@@ -46,6 +62,8 @@ const CustomCursor = () => {
         distanceX,
         distanceY,
       } = positionRef.current;
+      const secondaryCursorRef = secondaryCursor.current; // Get a reference to secondaryCursor element
+  
       if (!destinationX || !destinationY) {
         positionRef.current.destinationX = mouseX;
         positionRef.current.destinationY = mouseY;
@@ -64,21 +82,52 @@ const CustomCursor = () => {
           positionRef.current.destinationY += distanceY;
         }
       }
-      secondaryCursor.current.style.transform = `translate3d(${destinationX}px, ${destinationY}px, 0)`;
+  
+      if (secondaryCursorRef) { // Null check
+        secondaryCursorRef.style.transform = `translate3d(${destinationX}px, ${destinationY}px, 0)`;
+      }
     };
     followMouse();
   }, []);
+
   return (
-
-    <div className={`cursor-wrapper ${type}`}>
-      <div className="main-cursor " ref={mainCursor}>
-        <div className="main-cursor-background"></div>
-      </div>
-      <div className="secondary-cursor" ref={secondaryCursor}>
-        <div className="cursor-background"></div>
-      </div>
+    <div>
+    <div className={style.mainCursor} ref={mainCursor}>
+      <div className={style.mainCursorBackground}></div>
     </div>
+    <div className={style.secondaryCursor} ref={secondaryCursor}>
+      <div className={style.cursorBackground}></div>
+    </div>
+  </div>
+  )
+}
 
+const CustomCursor = () => {
+ 
+  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleMatchMedia = (event) => {
+      setIsTouchDevice(event.matches);
+    };
+
+    const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
+    setIsTouchDevice(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleMatchMedia);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMatchMedia);
+    };
+  }, []);
+
+  return (
+     <>
+     {isTouchDevice ? (
+       <></>
+     ) : (
+      <CustomCursorWraper/>
+     )}
+   </>
   );
 };
 

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import { AIresType } from "@modules/buildpc/partlist"
+import useAutoTextbox from "@lib/hooks/use-auto-textbox"
+import styles from "./chat.module.css"
 
 interface TextCompletionData {
   id: string
@@ -47,6 +49,14 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const chatContainerRef = useRef<HTMLInputElement>(null)
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+  const [value, setValue] = useState("")
+  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  useAutoTextbox(textAreaRef.current, value)
+  const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = evt.target?.value
+
+    setValue(val)
+  }
 
   // prevent user abuse
 
@@ -84,18 +94,21 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const handleSendMessage = (message: string) => {
     // disable button and prevent abuse
     handleButtonClick()
+    setValue("")
     setMessages((prevMessages) => [
       ...prevMessages,
       { sender: "user", message },
     ])
-
     // Simulate AI's response after 1 second
     // setTimeout(() => {
     //   setMessages((prevMessages) => [
     //     ...prevMessages,
-    //     { sender: "ai", message: "Sure, what's your question?" }
-    //   ]);
-    // }, 1000);
+    //     { sender: "ai", message: "Sure, what's your question?" },
+    //   ])
+    // }, 1000)
+
+    // TODO: on off switch for openapi
+    return null
 
     // prompt
     const data = {
@@ -114,32 +127,32 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
     }
 
     // Send a POST request to the "/api/openapi" endpoint with the given data
-  axios
-    .post("/api/openapi", data)
-    .then((response) => {
-      // If the request is successful, log the response data to the console
-      console.log("Response:", response.data);
+    axios
+      .post("/api/openapi", data)
+      .then((response) => {
+        // If the request is successful, log the response data to the console
+        console.log("Response:", response.data)
 
-      // Parse the response data as a TextCompletionResponse object
-      const responseData: TextCompletionResponse = response.data;
+        // Parse the response data as a TextCompletionResponse object
+        const responseData: TextCompletionResponse = response.data
 
-      // Parse the text of the first choice in the response data's choices array as a JSON object
-      const responseObject = JSON.parse(responseData.data.choices[0].text);
+        // Parse the text of the first choice in the response data's choices array as a JSON object
+        const responseObject = JSON.parse(responseData.data.choices[0].text)
 
-      // Set the AI response data state to the parsed JSON object
-      setAiResData(responseObject);
+        // Set the AI response data state to the parsed JSON object
+        setAiResData(responseObject)
 
-      // Add a new message object to the messages state, with "ai" as the sender and the parsed comments as the message text
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: "ai", message: responseObject?.comments },
-      ]);
-    })
-    .catch((error) => {
-      // If there was an error with the request, log the error to the console
-      console.error("Error:", error);
-      // could add additional error handling code here
-    })
+        // Add a new message object to the messages state, with "ai" as the sender and the parsed comments as the message text
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: "ai", message: responseObject?.comments },
+        ])
+      })
+      .catch((error) => {
+        // If there was an error with the request, log the error to the console
+        console.error("Error:", error)
+        // could add additional error handling code here
+      })
   }
 
   useEffect(() => {
@@ -148,11 +161,18 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
     if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight
   }, [messages])
 
+  const handleTextareaKeyDown = (event: any) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      handleSendMessage(value)
+    }
+  }
+
   return (
     <div className="w-full max-w-sm mx-auto">
       <h2 className="text-xl font-bold mb-2">Your AI Sidekick</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
-        <div ref={chatContainerRef} className="h-80 overflow-y-auto mb-4">
+        <div ref={chatContainerRef} className={styles.customscroll}>
           {messages.map((msg, index) => (
             <div key={index} className="flex flex-col mb-2">
               <span
@@ -177,31 +197,35 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
           ))}
         </div>
         <form
-            className="flex items-center"
-            onSubmit={(e) => {
-              // Prevent the default form submission behavior
-              e.preventDefault()
-              // Get the input element from the form
-              const input = e.currentTarget.message
-              // Check if the input value is not an empty string
-              if (input.value !== "") {
-                // Call the handleSendMessage function and pass it the input value
-                handleSendMessage(input.value)
-                // Clear the input element by setting its value to an empty string
-                input.value = ""
-              }
-            }}
-          >
-          <input
-            type="text"
+          className="flex items-end"
+          onSubmit={(e) => {
+            // Prevent the default form submission behavior
+            e.preventDefault()
+            // Get the input element from the form
+            const input = e.currentTarget.message
+            // Check if the input value is not an empty string
+            if (input.value !== "") {
+              // Call the handleSendMessage function and pass it the input value
+              handleSendMessage(input.value)
+              // Clear the input element by setting its value to an empty string
+              input.value = ""
+            }
+          }}
+        >
+          <textarea
             name="message"
             placeholder="Type your message..."
-            className="flex-grow rounded-full py-2 px-4 mr-2 focus:outline-none focus:ring w-full"
+            onChange={handleChange}
+            value={value}
+            ref={textAreaRef}
+            rows={1}
+            onKeyDown={handleTextareaKeyDown}
+            className="flex-grow rounded-md py-2 px-4 mr-2 focus:outline-none focus:ring w-full resize-none outline outline-gray-200 outline-1"
           />
           <button
             disabled={isButtonDisabled}
             type="submit"
-            className={`bg-primary text-white px-4 py-2 rounded-full font-bold ${
+            className={`bg-primary text-white px-4 py-2 rounded-md font-bold ${
               isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >

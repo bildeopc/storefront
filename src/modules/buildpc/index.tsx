@@ -11,7 +11,7 @@ const BuildPC = () => {
       message:
         "Hi there! Let me know what you want in your computer, and we'll get started creating the perfect one for you!",
     },
-    // { sender: "user", message: "Hi! I have a question about my account." }
+    // { sender: "user", message: "Hi! I have a question about my account." },
   ])
   const [aiResData, setAiResData] = useState<AIresType>({
     Overall: 3,
@@ -50,7 +50,7 @@ const BuildPC = () => {
             <Evaluate airesponse={aiResData} setAiResData={setAiResData} />
           </div>
           <div className="w-full lg:w-1/2">
-            <div className="w-full max-w-sm mx-auto ">
+            <div className="w-full max-w-sm lg:max-w-none mx-auto">
               <h2 className="text-xl font-bold mb-2">
                 Personalized PC Build by Stella
               </h2>

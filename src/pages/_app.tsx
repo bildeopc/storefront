@@ -7,7 +7,9 @@ import { Hydrate } from "@tanstack/react-query"
 import { CartProvider, MedusaProvider } from "medusa-react"
 import "styles/globals.css"
 import { AppPropsWithLayout } from "types/global"
-import "../modules/layout/components/custom-cursor/style.scss";
+
+import CustomCursor from "../modules/layout/components/custom-cursor"
+import CustomCursorManager from "../modules/layout/components/custom-cursor/context/manager"
 
 function App({
   Component,
@@ -28,7 +30,10 @@ function App({
             <CartProvider>
               <StoreProvider>
                 <AccountProvider>
-                  {getLayout(<Component {...pageProps} />)}
+                  <CustomCursorManager>
+                    <CustomCursor />
+                    {getLayout(<Component {...pageProps} />)}
+                  </CustomCursorManager>
                 </AccountProvider>
               </StoreProvider>
             </CartProvider>
