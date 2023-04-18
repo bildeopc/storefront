@@ -107,8 +107,8 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
     //   ])
     // }, 1000)
 
-    // TODO: on off switch for openapi
-    return null
+    // TODO: on/off switch for openapi
+    // return null
 
     // prompt
     const data = {
