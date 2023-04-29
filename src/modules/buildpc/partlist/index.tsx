@@ -5,6 +5,15 @@ import Image from "next/image"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 
+export type PartId = "CPU" | "GPU" | "Storage size" | "PSU" | "RAM" | "Mobo"
+export interface partsType {
+  id: PartId
+  variantID?: string
+  name?: string
+  price?: number
+  image?: string | null
+}
+
 // Define the interface for the AI response object
 export interface AIresType {
   Overall: 0 | 1 | 2 | 3
@@ -127,7 +136,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     }
   )
 
-  const parts = [
+  const parts: partsType[] = [
     {
       // Define the CPU part object
       id: "CPU",
