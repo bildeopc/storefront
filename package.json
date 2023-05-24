@@ -38,6 +38,7 @@
     "lodash": "^4.17.21",
     "medusa-react": "^4.0.4",
     "next": "^12.2.0",
+    "next-query-params": "^4.2.1",
     "openai": "^3.2.1",
     "react": "17.0.2",
     "react-country-flag": "^3.0.2",
@@ -46,7 +47,8 @@
     "react-instantsearch-hooks-web": "^6.29.0",
     "react-intersection-observer": "^9.3.4",
     "sass": "^1.62.0",
-    "sharp": "^0.30.7"
+    "sharp": "^0.30.7",
+    "use-query-params": "^2.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

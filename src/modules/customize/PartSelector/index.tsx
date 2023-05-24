@@ -24,12 +24,13 @@ const PartSelector: React.FC<PartSelectorProps> = ({
           key={part.id}
           className={
             selectedPart === part.id
-              ? "outline-primary flex flex-col items-center justify-center"
-              : "flex flex-col items-center justify-center"
+              ? "border-primary border-4 border-solid flex flex-col items-center justify-center"
+              : "flex flex-col items-center justify-center "
           }
           onClick={() => SetselectedPart(part.id)}
         >
           <div className="flex items-center">
+            <PartName id={part.id} />
             <Image
               className="w-12 h-12 mr-4"
               src={(part.image && part.image) || ""}
@@ -38,7 +39,6 @@ const PartSelector: React.FC<PartSelectorProps> = ({
               height={100}
             />
             <div>
-              <PartName id={part.id} />
               <p>{part.name}</p>
               <p>RM{part.price}</p>
             </div>

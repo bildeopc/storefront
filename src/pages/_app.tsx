@@ -11,6 +11,9 @@ import { AppPropsWithLayout } from "types/global"
 import CustomCursor from "../modules/layout/components/custom-cursor"
 import CustomCursorManager from "../modules/layout/components/custom-cursor/context/manager"
 
+import { QueryParamProvider } from "use-query-params"
+import NextAdapterPages from "next-query-params/pages"
+
 function App({
   Component,
   pageProps,
@@ -31,8 +34,10 @@ function App({
               <StoreProvider>
                 <AccountProvider>
                   <CustomCursorManager>
-                    <CustomCursor />
-                    {getLayout(<Component {...pageProps} />)}
+                    <QueryParamProvider adapter={NextAdapterPages}>
+                      <CustomCursor />
+                      {getLayout(<Component {...pageProps} />)}
+                    </QueryParamProvider>
                   </CustomCursorManager>
                 </AccountProvider>
               </StoreProvider>

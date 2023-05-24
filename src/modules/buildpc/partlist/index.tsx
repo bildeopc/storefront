@@ -27,7 +27,7 @@ export interface AIresType {
 }
 
 // Define an object containing collection IDs for each PC part type
-const partList = {
+export const partList = {
   cpu: "pcol_01GXZM5QATSXZC9GKDJ7RM4Y9V",
   storage: "pcol_01GXZM7TGB0EY5SD369Q0E27QG",
   ram: "pcol_01GXZM6ZZCWRA5Y3J0J8YZG6QT",
