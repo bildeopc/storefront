@@ -24,6 +24,7 @@ interface StoreContext {
   countryCode: string | undefined
   setRegion: (regionId: string, countryCode: string) => void
   addItem: (item: VariantInfoProps) => void
+  addItemMultiple: (item: VariantInfoProps[]) => void
   updateItem: (item: LineInfoProps) => void
   deleteItem: (lineId: string) => void
   resetCart: () => void
@@ -251,6 +252,40 @@ export const StoreProvider = ({ children }: StoreProps) => {
     )
   }
 
+  // add multiple
+
+  const addItemMultiple = (variants: VariantInfoProps[]) => {
+    variants.forEach((variant, index) => {
+      if (index === variants.length - 1) {
+        setTimeout(() => {
+          addLineItem.mutate(
+            {
+              variant_id: variant.variantId,
+              quantity: variant.quantity,
+            },
+            {
+              onSuccess: ({ cart }) => {
+                setCart(cart)
+                storeCart(cart.id)
+                timedOpen()
+              },
+              onError: (error) => {
+                handleError(error)
+              },
+            }
+          )
+        }, index * 2000) // Delay in milliseconds: 2000ms = 2 seconds
+      } else {
+        setTimeout(() => {
+          addLineItem.mutate({
+            variant_id: variant.variantId,
+            quantity: variant.quantity,
+          })
+        }, index * 2000)
+      }
+    })
+  }
+
   const deleteItem = (lineId: string) => {
     removeLineItem.mutate(
       {
@@ -298,6 +333,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         countryCode,
         setRegion,
         addItem,
+        addItemMultiple,
         deleteItem,
         updateItem,
         resetCart,
