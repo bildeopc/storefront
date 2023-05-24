@@ -5,10 +5,13 @@ import { partsType, PartId } from "@modules/buildpc/partlist"
 import PartSelector from "./PartSelector"
 import PartsList from "./partslist"
 import { useQueryParam, StringParam, withDefault } from "use-query-params"
+import { formatVariantPrice, useCart } from "medusa-react"
+import { useStore } from "@lib/context/store-context"
 
 const PartsComponent = () => {
   const router = useRouter()
   // const { partlist } = router.query
+  const { addItemMultiple } = useStore()
 
   const [partlist, setPartlist] = useQueryParam(
     "partlist",
@@ -26,6 +29,36 @@ const PartsComponent = () => {
   }
 
   const [selectedPart, SetselectedPart] = useState<PartId>("CPU")
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const addPartListToCart = async () => {
+    // Disable the button and show loading state
+    setIsLoading(true)
+
+    // add items
+    await addItemMultiple(
+      parts.map((part) => {
+        if (part.variantID) {
+          return { variantId: part.variantID, quantity: 1 }
+        } else {
+          return {
+            variantId: "variant_01GY1ZVHXM4PR3P21B9TNN0B9V",
+            quantity: 1,
+          }
+        }
+      })
+    )
+
+    // Simulate an asynchronous operation for 12 seconds
+    setTimeout(() => {
+      // Enable the button and hide loading state
+      setIsLoading(false)
+
+      // Perform the actual action here, such as adding the part list to the cart
+      router.push("/cart")
+    }, 10000)
+  }
 
   // Render the component with the parts data
   return (
@@ -45,8 +78,21 @@ const PartsComponent = () => {
           />
         </div>
         <div className="w-full lg:w-1/2">
-          <PartsList selectedPart={selectedPart} parts={parts} />
+          <PartsList
+            selectedPart={selectedPart}
+            parts={parts}
+            modifyPartList={modifyPartList}
+          />
         </div>
+      </div>
+      <div className="p-6 flex justify-end">
+        <button
+          className="bg-gray-900 text-white py-2 px-4 rounded-md"
+          onClick={addPartListToCart}
+          disabled={isLoading} // Disable the button when loading is true
+        >
+          {isLoading ? "Loading..." : "Add to cart"}
+        </button>
       </div>
     </>
   )

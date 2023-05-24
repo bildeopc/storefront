@@ -28,12 +28,12 @@ export interface AIresType {
 
 // Define an object containing collection IDs for each PC part type
 export const partList = {
-  cpu: "pcol_01GXZM5QATSXZC9GKDJ7RM4Y9V",
-  storage: "pcol_01GXZM7TGB0EY5SD369Q0E27QG",
-  ram: "pcol_01GXZM6ZZCWRA5Y3J0J8YZG6QT",
-  psu: "pcol_01GXZM63F3MB7CM0572YW5MWEC",
-  gpu: "pcol_01GXRCDGWMF7ENXXMQMVVSEAHN",
-  mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
+  CPU: "pcol_01GXZM5QATSXZC9GKDJ7RM4Y9V",
+  "Storage size": "pcol_01GXZM7TGB0EY5SD369Q0E27QG",
+  RAM: "pcol_01GXZM6ZZCWRA5Y3J0J8YZG6QT",
+  PSU: "pcol_01GXZM63F3MB7CM0572YW5MWEC",
+  GPU: "pcol_01GXRCDGWMF7ENXXMQMVVSEAHN",
+  Mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
 }
 
 // Define a function to get the PC part type ID based on a given rating, 1 = low end, 2 = mid end, 3 = high end
@@ -81,7 +81,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
   //{ data, isError, isLoading, isSuccess }
   const CPUQuery = useQuery(
     [`get_cpu`, airesponse.CPU],
-    () => fetchProduct({ partRating: airesponse.CPU, pcpart: partList.cpu }),
+    () => fetchProduct({ partRating: airesponse.CPU, pcpart: partList.CPU }),
     {
       keepPreviousData: true,
     }
@@ -89,7 +89,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
 
   const GPUQuery = useQuery(
     [`get_gpu`, airesponse.GPU],
-    () => fetchProduct({ partRating: airesponse.GPU, pcpart: partList.gpu }),
+    () => fetchProduct({ partRating: airesponse.GPU, pcpart: partList.GPU }),
     {
       keepPreviousData: true,
       enabled: !CPUQuery.isFetching, // Check if CPUQuery is not fetching data
@@ -101,7 +101,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
     () =>
       fetchProduct({
         partRating: airesponse["Storage size"],
-        pcpart: partList.storage,
+        pcpart: partList["Storage size"],
       }),
     {
       keepPreviousData: true,
@@ -111,7 +111,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
 
   const PSUQuery = useQuery(
     [`get_psu`, airesponse.PSU],
-    () => fetchProduct({ partRating: airesponse.PSU, pcpart: partList.psu }),
+    () => fetchProduct({ partRating: airesponse.PSU, pcpart: partList.PSU }),
     {
       keepPreviousData: true,
       enabled: !StorageSizeQuery.isFetching, // Check if StorageSizeQuery is not fetching data
@@ -120,7 +120,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
 
   const RAMQuery = useQuery(
     [`get_memory`, airesponse.RAM],
-    () => fetchProduct({ partRating: airesponse.RAM, pcpart: partList.ram }),
+    () => fetchProduct({ partRating: airesponse.RAM, pcpart: partList.RAM }),
     {
       keepPreviousData: true,
       enabled: !PSUQuery.isFetching, // Check if PSUQuery is not fetching data
@@ -129,7 +129,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
 
   const MoboQuery = useQuery(
     [`get_Mobo`, airesponse.Mobo],
-    () => fetchProduct({ partRating: airesponse.Mobo, pcpart: partList.mobo }),
+    () => fetchProduct({ partRating: airesponse.Mobo, pcpart: partList.Mobo }),
     {
       keepPreviousData: true,
       enabled: !RAMQuery.isFetching, // Check if RAMQuery is not fetching data
