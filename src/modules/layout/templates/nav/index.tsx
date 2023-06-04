@@ -76,7 +76,7 @@ const Nav = () => {
               </button>
             </Link>
 
-            <Link href="/">
+            <Link href="/reviews">
               <a className="px-6 hidden md:inline-block">Reviews</a>
             </Link>
           </div>
@@ -86,8 +86,8 @@ const Nav = () => {
             </Link>
           </div>
           <div>
-            <Link href="/buynowpaylater">
-              <a className="px-6 hidden md:inline-block">PayLater</a>
+            <Link href="/support">
+              <a className="px-6 hidden md:inline-block">Support</a>
             </Link>
             <Link href="/about">
               <a className="px-6 hidden md:inline-block">About Us</a>
