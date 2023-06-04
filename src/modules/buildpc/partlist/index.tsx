@@ -16,7 +16,6 @@ export interface partsType {
 
 // Define the interface for the AI response object
 export interface AIresType {
-  Overall: 0 | 1 | 2 | 3
   CPU: 0 | 1 | 2 | 3
   GPU: 0 | 1 | 2 | 3
   "Storage size": 0 | 1 | 2 | 3
@@ -24,6 +23,15 @@ export interface AIresType {
   RAM: 0 | 1 | 2 | 3
   Mobo: 0 | 1 | 2 | 3
   comments: string
+}
+
+export const PartIdLabels: Record<PartId, string> = {
+  CPU: "Processor",
+  GPU: "Graphics Card",
+  "Storage size": "Storage Size",
+  PSU: "Power Supply",
+  RAM: "Memory",
+  Mobo: "Motherboard",
 }
 
 // Define an object containing collection IDs for each PC part type
@@ -192,6 +200,7 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
       <div className="flex flex-wrap">
         {parts.map((part) => (
           <div key={part.id} className="w-full lg:w-1/2 xl:w-1/2 p-4">
+            <div className="text-black"> {PartIdLabels[part.id]} </div>
             <div className="flex flex-row items-center">
               <div className="w-12 h-12 flex-shrink-0">
                 <Image

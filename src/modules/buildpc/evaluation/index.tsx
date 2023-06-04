@@ -22,50 +22,18 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
   }
 
   return (
-    <div className="w-full max-w-sm mx-auto p-4 pt-0">
+    <div className="p-4 pt-0 ">
       <h2 className="text-xl font-bold mb-2">Customize Your Recommendations</h2>
       <h3 className="text-sm mb-4">Refine Your Results</h3>
 
-      <div className="mb-4">
-        <label
-          htmlFor="OverallButtons"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Overall:
-        </label>
-        <div id="OverallButtons" className="flex justify-between">
-          {airesponse.Overall === 1 ? (
-            <button className="bg-green-800 py-2 px-4 rounded text-white font-bold cursor-default ">
-              Good
-            </button>
-          ) : (
-            <button className="invisible">Hidden Button</button>
-          )}
-          {airesponse.Overall === 2 ? (
-            <button className="bg-green-600 py-2 px-4 rounded text-white font-bold cursor-default ">
-              Better
-            </button>
-          ) : (
-            <button className="invisible">Hidden Button</button>
-          )}
-          {airesponse.Overall === 3 ? (
-            <button className="bg-green-400 py-2 px-4 rounded text-white font-bold cursor-default ">
-              Best
-            </button>
-          ) : (
-            <button className="invisible">Hidden Button</button>
-          )}
-        </div>
-      </div>
-
       <div className="flex justify-between text-sm font-medium text-gray-700 mb-2">
-        <span className="text-sm font-medium text-gray-700">Trash</span>
+        <span className="text-sm font-medium text-gray-700">Low</span>
         <span className="text-sm font-medium text-gray-700">Medium</span>
-        <span className="text-sm font-medium text-gray-700">Nice</span>
+        <span className="text-sm font-medium text-gray-700">High</span>
       </div>
       {Object.entries(airesponse).map(([key, value]) => {
-        // Check if the key is not "comments" or "Overall"
-        if (key !== "comments" && key !== "Overall") {
+        // Check if the key is not "comments"
+        if (key !== "comments") {
           // Check if the value is 0
           if (value === 0) {
             // If value is 0, render a disabled slider with 0.5 opacity

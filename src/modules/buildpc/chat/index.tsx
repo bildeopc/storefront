@@ -112,18 +112,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
 
     // prompt
     const data = {
-      prompt: `act as a computer suggester system and print out the evaluation below in JSON. only choose 1=low or 2=mid or 3=high.
-      question: ${message}
-      {
-      "Overall":1,2,3
-      "CPU":1,2,3
-      "GPU":1,2,3
-      "Storage size":1,2,3
-      "PSU":1,2,3
-      "RAM";1,2,3
-      "Mobo":1,2,3
-      "comments": (your explaination)
-      }`,
+      prompt: `act as a computer suggester system and only print out the evaluation below in JSON. only choose 1=low or 2=mid or 3=high. question:"${message}"must follow JSON format below:{"CPU":1,2,3"GPU":1,2,3"Storage size":1,2,3"PSU":1,2,3"RAM";1,2,3"Mobo":1,2,3"comments":"your explaination"}`,
     }
 
     // Send a POST request to the "/api/openapi" endpoint with the given data
@@ -169,7 +158,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   }
 
   return (
-    <div className="w-full max-w-sm mx-auto">
+    <div className="">
       <h2 className="text-xl font-bold mb-2">Your AI Sidekick</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
         <div ref={chatContainerRef} className={styles.customscroll}>

@@ -25,22 +25,25 @@ const PartSelector: React.FC<PartSelectorProps> = ({
           className={
             selectedPart === part.id
               ? "border-primary border-4 border-solid flex flex-col items-center justify-center"
-              : "flex flex-col items-center justify-center "
+              : "flex flex-col items-center justify-center border-4 border-white border-solid"
           }
           onClick={() => SetselectedPart(part.id)}
         >
-          <div className="flex items-center">
-            <PartName id={part.id} />
-            <Image
-              className="w-12 h-12 mr-4"
-              src={(part.image && part.image) || ""}
-              alt={part.name}
-              width={100}
-              height={100}
-            />
-            <div>
-              <p>{part.name}</p>
-              <p>RM{part.price}</p>
+          <div className="flex flex-row items-center justify-between w-full px-20">
+            <div className="w-100">
+              <PartName id={part.id} />
+            </div>
+            <div className="w-[250px] flex flex-row items-center justify-center">
+              <Image
+                src={(part.image && part.image) || ""}
+                alt={part.name}
+                width={60}
+                height={60}
+              />
+              <div>
+                <p>{part.name}</p>
+                <p>RM{part.price}</p>
+              </div>
             </div>
           </div>
         </div>
