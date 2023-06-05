@@ -44,7 +44,7 @@ const CountrySelect = () => {
   return (
     <div onMouseEnter={open} onMouseLeave={close}>
       <Listbox
-      disabled
+        disabled
         onChange={handleChange}
         defaultValue={
           countryCode
@@ -65,7 +65,7 @@ const CountrySelect = () => {
                   }}
                   countryCode={current.country}
                 />
-                {current.label}
+                Whole {current.label}
               </span>
             )}
           </div>

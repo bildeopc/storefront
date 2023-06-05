@@ -9,7 +9,7 @@ interface PartNameProps {
 interface PartSelectorProps {
   parts: partsType[]
   SetselectedPart: Function
-  selectedPart: PartId
+  selectedPart: PartId | "None"
 }
 
 const PartSelector: React.FC<PartSelectorProps> = ({
@@ -24,25 +24,39 @@ const PartSelector: React.FC<PartSelectorProps> = ({
           key={part.id}
           className={
             selectedPart === part.id
-              ? "border-primary border-4 border-solid flex flex-col items-center justify-center"
-              : "flex flex-col items-center justify-center border-4 border-white border-solid"
+              ? "border-primary border-4 border-solid flex flex-col items-center justify-center rounded-md hover:bg-gray-100 transition duration-200 ease-in-out"
+              : "flex flex-col items-center justify-center border-4 border-white border-solid hover:border-gray-300 hover:bg-gray-100 rounded-lg transition duration-200 ease-in-out"
           }
-          onClick={() => SetselectedPart(part.id)}
+          onClick={() =>
+            SetselectedPart(selectedPart === part.id ? "None" : part.id)
+          }
         >
-          <div className="flex flex-row items-center justify-between w-full px-20">
-            <div className="w-100">
+          <div className="flex flex-row items-center justify-between w-full ">
+            <div className="w-100 pl-1">
               <PartName id={part.id} />
             </div>
-            <div className="w-[250px] flex flex-row items-center justify-center">
-              <Image
-                src={(part.image && part.image) || ""}
-                alt={part.name}
-                width={60}
-                height={60}
-              />
-              <div>
-                <p>{part.name}</p>
-                <p>RM{part.price}</p>
+            <div className="py-2 w-[270px] flex flex-row items-center justify-start">
+              <div className="flex flex-row justify-center">
+                <div className="w-20">
+                  <Image
+                    src={(part.image && part.image) || ""}
+                    alt={part.name}
+                    width={60}
+                    height={60}
+                  />
+                </div>
+              </div>
+              <div className="pr-2">
+                <p className="text-lg font-semibold whitespace-nowrap w-[180px] text-ellipsis overflow-hidden hover:overflow-visible transition duration-200 ease-in-out">
+                  {part.name}
+                </p>
+                {part.price ? (
+                  <p className="text-gray-500">
+                    RM {(part.price / 100).toFixed(2)}
+                  </p>
+                ) : (
+                  <p>Price Error</p>
+                )}
               </div>
             </div>
           </div>

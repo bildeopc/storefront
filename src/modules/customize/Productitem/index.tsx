@@ -16,7 +16,10 @@ type ProductActionsProps = {
 const Productitem: React.FC<ProductActionsProps> = ({ product, setParts }) => {
   return (
     <>
-      <div key={product.id} className="w-full lg:w-1/2 xl:w-1/2 p-4">
+      <div
+        key={product.id}
+        className="w-full  p-4 hover:bg-gray-200 transition duration-200 ease-in-out rounded-lg"
+      >
         <div className="flex flex-row items-center">
           <div className="w-12 h-12 flex-shrink-0">
             <Image
@@ -50,7 +53,7 @@ const Productitem: React.FC<ProductActionsProps> = ({ product, setParts }) => {
               }}
               className="bg-gray-900 text-white py-2 px-4 rounded-md"
             >
-              Use
+              Replace
             </button>
           </div>
         </div>
