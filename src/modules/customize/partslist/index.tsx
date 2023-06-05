@@ -69,8 +69,6 @@ const PartsList: React.FC<PartSelectorProps> = ({
 
   return (
     <>
-      <div>PartsList</div>
-      <h1>{selectedPart}</h1>
       {!isFetching &&
         collectionList?.response.products.map((part) =>
           part.variants[0]?.id === selectedpartObj?.variantID ? (

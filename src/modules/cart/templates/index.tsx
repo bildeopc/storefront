@@ -32,9 +32,9 @@ const CartTemplate = () => {
                     <div className="bg-white p-6">
                       <Summary cart={cart} />
                     </div>
-                    <div className="bg-white p-6">
+                    {/* <div className="bg-white p-6">
                       <DiscountCode cart={cart} />
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>

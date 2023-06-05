@@ -4,7 +4,7 @@ import { AIresType } from "@modules/buildpc/partlist"
 import useAutoTextbox from "@lib/hooks/use-auto-textbox"
 import styles from "./chat.module.css"
 
-interface TextCompletionData {
+export interface TextCompletionData {
   id: string
   object: string
   created: number
@@ -13,20 +13,20 @@ interface TextCompletionData {
   usage: TextCompletionUsage
 }
 
-interface TextCompletionChoice {
+export interface TextCompletionChoice {
   text: string
   index: number
   logprobs: null
   finish_reason: string
 }
 
-interface TextCompletionUsage {
+export interface TextCompletionUsage {
   prompt_tokens: number
   completion_tokens: number
   total_tokens: number
 }
 
-interface TextCompletionResponse {
+export interface TextCompletionResponse {
   status: string
   message: string
   data: TextCompletionData

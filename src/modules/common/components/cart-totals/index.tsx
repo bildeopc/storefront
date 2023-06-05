@@ -49,7 +49,11 @@ const CartTotals: React.FC<CartTotalsProps> = ({ cart }) => {
             <span>{getAmount(shipping_total)}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>Taxes</span>
+            <span>Build fees</span>
+            <span>FREE</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span>Service fees</span>
             <span>{getAmount(tax_total)}</span>
           </div>
         </div>
