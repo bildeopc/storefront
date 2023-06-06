@@ -1,6 +1,15 @@
 import React, { useState } from "react"
 import { AIresType } from "@modules/buildpc/partlist"
 
+const PartIdLabels: Record<string, string> = {
+  CPU: "Processor",
+  GPU: "Graphics Card",
+  "Storage size": "Storage Size",
+  PSU: "Power Supply",
+  RAM: "Memory",
+  Mobo: "Motherboard",
+}
+
 // Define the BuildpcProps type, which specifies the props passed to the Buildpc component
 type BuildpcProps = {
   airesponse: AIresType // A prop of type AIresType that stores the AI's response data
@@ -26,10 +35,10 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
       <h2 className="text-xl font-bold mb-2">Customize Your Recommendations</h2>
       <h3 className="text-sm mb-4">Refine Your Results</h3>
 
-      <div className="flex justify-between text-sm font-medium text-gray-700 mb-2">
-        <span className="text-sm font-medium text-gray-700">Low</span>
-        <span className="text-sm font-medium text-gray-700">Medium</span>
-        <span className="text-sm font-medium text-gray-700">High</span>
+      <div className="flex justify-between text-sm font-medium text-gray-700 mb-5">
+        <span className="text-sm font-bold text-gray-700">Low</span>
+        <span className="text-sm font-bold text-gray-700">Medium</span>
+        <span className="text-sm font-bold text-gray-700">High</span>
       </div>
       {Object.entries(airesponse).map(([key, value]) => {
         // Check if the key is not "comments"
@@ -67,7 +76,7 @@ const Buildpc = ({ airesponse, setAiResData }: BuildpcProps) => {
                   htmlFor={`${key}Slider`}
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  {key}:
+                  {PartIdLabels[key]}:
                 </label>
                 <input
                   type="range"
