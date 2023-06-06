@@ -193,9 +193,9 @@ const PartsComponent = () => {
 
       if (response.data) {
         navigator.clipboard.writeText(
-          `https://shorturl.lawcloud.page/${randomString}`
+          `https://mypc.bildeopc.com/${randomString}`
         )
-        setShareLink(`https://shorturl.lawcloud.page/${randomString}`)
+        setShareLink(`https://mypc.bildeopc.com/${randomString}`)
         setcurrentlongLink(longurl)
       } else {
         setShareLink("")

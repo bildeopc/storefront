@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       "base64"
     )}`
 
-    const apiUrl = `https://shorturl.lawcloud.page/api/new?long=${data.url}&short=${data.short}`
+    const apiUrl = `https://mypc.bildeopc.com/api/new?long=${data.url}&short=${data.short}`
 
     try {
       const response = await axios.post(
