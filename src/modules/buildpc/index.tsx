@@ -11,7 +11,7 @@ const BuildPC = () => {
       message:
         "Hi there! Let me know what you want in your computer, and we'll get started creating the perfect one for you!",
     },
-    // { sender: "user", message: "Hi! I have a question about my account." },
+    { sender: "user", message: "Hi! I have a question about my account." },
   ])
   const [aiResData, setAiResData] = useState<AIresType>({
     CPU: 0,
