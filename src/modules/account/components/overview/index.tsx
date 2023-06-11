@@ -119,14 +119,13 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                                   {new Date(order.created_at).toDateString()}
                                 </span>
                                 <span>#{order.display_id}</span>
-                                <span>
-                                  {/* {formatAmount({
+                                {/* <span>
+                                  {formatAmount({
                                     amount: order.total,
                                     region: order.region,
                                     includeTaxes: false,
-                                  })} */}
-                                  RM {order.subtotal + order.shipping_total}
-                                </span>
+                                  })}
+                                </span> */}
                               </div>
                               <button
                                 className="flex items-center justify-between"
