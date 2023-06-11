@@ -27,13 +27,13 @@ const OrderCard = ({ order }: OrderCardProps) => {
         <span className="pr-2">
           {new Date(order.created_at).toDateString()}
         </span>
-        <span className="px-2">
+        {/* <span className="px-2">
           {formatAmount({
             amount: order.total,
             region: order.region,
             includeTaxes: false,
           })}
-        </span>
+        </span> */}
         <span className="pl-2">{`${numberOfLines} ${
           numberOfLines > 1 ? "items" : "item"
         }`}</span>
