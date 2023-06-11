@@ -112,9 +112,9 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                                 <span className="font-semibold">
                                   Order number
                                 </span>
-                                <span className="font-semibold">
+                                {/* <span className="font-semibold">
                                   Total amount
-                                </span>
+                                </span> */}
                                 <span>
                                   {new Date(order.created_at).toDateString()}
                                 </span>
