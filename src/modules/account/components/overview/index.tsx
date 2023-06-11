@@ -120,11 +120,12 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                                 </span>
                                 <span>#{order.display_id}</span>
                                 <span>
-                                  {formatAmount({
+                                  {/* {formatAmount({
                                     amount: order.total,
                                     region: order.region,
                                     includeTaxes: false,
-                                  })}
+                                  })} */}
+                                  RM {order.total}
                                 </span>
                               </div>
                               <button
