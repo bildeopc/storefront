@@ -105,7 +105,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                         <Link href={`/order/details/${order.id}`}>
                           <a>
                             <div className="bg-gray-50 flex justify-between items-center p-4">
-                              <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1">
+                              <div className="grid grid-cols-2 grid-rows-2 text-small-regular gap-x-4 flex-1">
                                 <span className="font-semibold">
                                   Date placed
                                 </span>
