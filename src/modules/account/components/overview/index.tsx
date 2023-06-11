@@ -125,7 +125,7 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                                     region: order.region,
                                     includeTaxes: false,
                                   })} */}
-                                  RM {order.total}
+                                  RM {order.subtotal + order.shipping_total}
                                 </span>
                               </div>
                               <button
