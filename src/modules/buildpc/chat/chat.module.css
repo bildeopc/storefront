@@ -16,7 +16,7 @@
     --tw-text-opacity: 1;
     color: rgb(107 114 128 / var(--tw-text-opacity));
     margin-top: 1rem/* 16px */;
-    justify-content: start;
+    justify-content: flex-start;
     display: flex;
     align-items: center;
 }

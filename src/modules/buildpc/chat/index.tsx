@@ -77,6 +77,18 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const [isTyping, setIsTyping] = useState(false)
   const [suggestionList, setSuggestionList] = useState<typeof SUGGESTIONS>([])
 
+  const [seconds, setSeconds] = useState(0)
+
+  useEffect(() => {
+    if (seconds > 0) {
+      const timer = setInterval(
+        () => setSeconds((prevSeconds) => prevSeconds - 1),
+        1000
+      )
+      return () => clearInterval(timer)
+    }
+  }, [seconds])
+
   const getRandomSuggestions = () => {
     const shuffledSuggestions = SUGGESTIONS.sort(() => 0.5 - Math.random())
     const selectedSuggestions = shuffledSuggestions.slice(0, 3)
@@ -119,6 +131,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
     setCooldownTime(cooldownTime)
     localStorage.setItem("cooldownTime", cooldownTime.toString())
     startCooldownTimer(30000)
+    setSeconds(30)
   }
 
   const handleSendMessage = (message: string) => {
@@ -251,7 +264,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             className="flex items-center justify-center mt-4 text-gray-500"
             title="This is a cooldown to prevent abuse."
           >
-            Please wait for 30 seconds before sending another message.
+            Please wait for {seconds} seconds before sending another message.
           </div>
         )}
         <form
