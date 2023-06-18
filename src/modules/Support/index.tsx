@@ -7,7 +7,7 @@ const Support = () => {
         Welcome to Support
       </h1>
       <p className="text-xl leading-6 text-gray-600 mb-5">
-        Welcome to the BideoPC Support Page. We are here to assist you with any
+        Welcome to the BildeoPC Support Page. We are here to assist you with any
         inquiries or issues you may have.
       </p>
       <p className="text-xl leading-6 text-gray-600 mb-5">
@@ -15,11 +15,11 @@ const Support = () => {
         assistance.
       </p>
       <p className="text-xl leading-6 text-gray-600 mb-5">
-        With BideoPC, you enjoy a 2-year warranty on all our products, ensuring
+        With BildeoPC, you enjoy a 2-year warranty on all our products, ensuring
         peace of mind and reliable performance.
       </p>
       <p className="text-lg text-gray-600">
-        At BideoPC, we specialize in building high-quality custom PCs tailored
+        At BildeoPC, we specialize in building high-quality custom PCs tailored
         to meet your specific needs.
       </p>
     </div>

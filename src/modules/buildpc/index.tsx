@@ -13,6 +13,7 @@ const BuildPC = () => {
     },
     // { sender: "user", message: "Hi! I have a question about my account." },
   ])
+
   const [aiResData, setAiResData] = useState<AIresType>({
     CPU: 0,
     GPU: 0,
@@ -24,10 +25,11 @@ const BuildPC = () => {
   })
 
   const [customslider, setcustomslider] = useState(false)
+
   const handleToggle = () => {
     setcustomslider(!customslider)
   }
-  // Render the Build PC page
+
   return (
     <>
       <div className="p-6">
@@ -39,9 +41,9 @@ const BuildPC = () => {
         </p>
       </div>
       <div className="p-6 flex flex-col lg:flex-row justify-center">
-        {messages.length > 1 ? (
+        {aiResData.CPU !== 0 ? (
           <div className="w-full">
-            <div className="max-w-[450px] mx-auto ">
+            <div className="max-w-[495px] mx-auto ">
               <Chat
                 messages={messages}
                 setMessages={setMessages}
@@ -50,17 +52,16 @@ const BuildPC = () => {
               <div className="pb-10 pt-3 flex flex-row transition duration-200 ease-in">
                 <input
                   type="checkbox"
-                  className="toggle-checkbox block w-6 h-6 rounded-full bg-white border-4  cursor-pointer"
+                  className="toggle-checkbox block w-6 h-6 rounded-full bg-white border-4 cursor-pointer"
                   checked={customslider}
                   onClick={handleToggle}
                 />
-                <p className="ml-3">Advanced Adjustments</p>
+                <p className="ml-3">Fine-Tuning</p>
               </div>
             </div>
           </div>
         ) : (
           <div className="w-full lg:w-1/2">
-            {/*}Render the Chat component and pass in state variables to manage chat messages and AI response data*/}
             <Chat
               messages={messages}
               setMessages={setMessages}
@@ -68,11 +69,12 @@ const BuildPC = () => {
             />
           </div>
         )}
-        {messages.length > 1 && (
+        {aiResData.CPU !== 0 && (
           <>
             {customslider && (
               <div className="pt-10 lg:pt-0 w-full px-2 ">
                 <div className="max-w-[390px] mx-auto">
+                  {/*Render the Evaluate component and pass in AI response data*/}
                   <Evaluate
                     airesponse={aiResData}
                     setAiResData={setAiResData}
@@ -85,7 +87,6 @@ const BuildPC = () => {
                 <h2 className="text-xl font-bold mb-2">
                   Personalized PC Build by Stella
                 </h2>
-                {/*Render the Partlist component and pass in AI response data*/}
                 <Partlist airesponse={aiResData} />
               </div>
             </div>

@@ -47,72 +47,69 @@ type ChatProps = {
 
 const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const chatContainerRef = useRef<HTMLInputElement>(null)
-
+  const [cooldownTime, setCooldownTime] = useState(0)
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const [value, setValue] = useState("")
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const [isTyping, setIsTyping] = useState(false)
+
   useAutoTextbox(textAreaRef.current, value)
   const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = evt.target?.value
-
     setValue(val)
   }
 
-  // prevent user abuse
-
-  const handleButtonClick = () => {
-    // Disable the button when clicked
-    setIsButtonDisabled(true)
-    // Set a timeout of 30 seconds to re-enable the button
-    setTimeout(() => {
-      setIsButtonDisabled(false)
-    }, 30000)
-  }
-
   useEffect(() => {
-    // Check if the button was previously disabled within the last 30 seconds
-    const lastDisabledTime = localStorage.getItem("lastDisabledTime")
-    if (lastDisabledTime) {
-      const currentTime = new Date().getTime()
-      const timeDifference = currentTime - parseInt(lastDisabledTime)
-      // If the time difference is less than 30 seconds, disable the button
-      if (timeDifference < 30000) {
+    const storedCooldownTime = localStorage.getItem("cooldownTime")
+    if (storedCooldownTime) {
+      const storedTime = parseInt(storedCooldownTime)
+      const remainingTime = storedTime - Date.now()
+
+      if (remainingTime > 0) {
         setIsButtonDisabled(true)
+        setCooldownTime(storedTime)
+        startCooldownTimer(remainingTime)
+      } else {
+        localStorage.removeItem("cooldownTime")
       }
     }
   }, [])
 
-  useEffect(() => {
-    // Update the last disabled time in localStorage when the button is disabled
-    if (isButtonDisabled) {
-      localStorage.setItem("lastDisabledTime", new Date().getTime().toString())
-    } else {
-      localStorage.removeItem("lastDisabledTime")
-    }
-  }, [isButtonDisabled])
+  const startCooldownTimer = (duration: number) => {
+    setTimeout(() => {
+      setIsButtonDisabled(false)
+      localStorage.removeItem("cooldownTime")
+    }, duration)
+  }
+
+  const handleButtonClick = () => {
+    const cooldownTime = Date.now() + 30000
+    setIsButtonDisabled(true)
+    setCooldownTime(cooldownTime)
+    localStorage.setItem("cooldownTime", cooldownTime.toString())
+    startCooldownTimer(30000)
+  }
 
   const handleSendMessage = (message: string) => {
-    // disable button and prevent abuse
+    // Check if the button is disabled
+    if (isButtonDisabled) {
+      // Return early if the button is still disabled
+      return
+    }
+
     handleButtonClick()
     setValue("")
+    setIsTyping(true)
     setMessages((prevMessages) => [
       ...prevMessages,
       { sender: "user", message },
     ])
-    // Simulate AI's response after 1 second
-    // setTimeout(() => {
-    //   setMessages((prevMessages) => [
-    //     ...prevMessages,
-    //     { sender: "ai", message: "Sure, what's your question?" },
-    //   ])
-    // }, 1000)
 
-    // TODO: on/off switch for openapi
-    // return null
-
-    // prompt
+    // Prompt
     const data = {
-      prompt: `act as a computer suggester system and only print out the evaluation below in JSON. only choose 1=low or 2=mid or 3=high. question:"${message}"must follow JSON format below:{"CPU":1,2,3"GPU":1,2,3"Storage size":1,2,3"PSU":1,2,3"RAM";1,2,3"Mobo":1,2,3"comments":"your explaination"}`,
+      prompt: `Act as a computer part suggester system. Question:"${message}" use JSON format and ratings from 1 (low) to 3 (high). 
+      If the message is unrelated, must return all ratings as 0 and "comments":"",
+      Else, dont rate 0, following the format: {"CPU":1,2,3"GPU":1,2,3"Storage size":1,2,3"PSU":1,2,3"RAM";1,2,3"Mobo":1,2,3"comments":"your explanation"}.`,
     }
 
     // Send a POST request to the "/api/openapi" endpoint with the given data
@@ -131,17 +128,36 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
         // Set the AI response data state to the parsed JSON object
         setAiResData(responseObject)
 
-        // Add a new message object to the messages state, with "ai" as the sender and the parsed comments as the message text
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: "ai", message: responseObject?.comments },
-        ])
+        // Check if the response object contains any comments
+        if (responseObject.comments) {
+          // Add a new message object to the messages state, with "ai" as the sender and the parsed comments as the message text
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { sender: "ai", message: responseObject.comments },
+          ])
+        } else {
+          // Add a different message when the comments are not present
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              sender: "ai",
+              message: "This message is not related to PCs or computers.",
+            },
+          ])
+        }
       })
       .catch((error) => {
         // If there was an error with the request, log the error to the console
         console.error("Error:", error)
-        // could add additional error handling code here
       })
+      .finally(() => {
+        setIsTyping(false)
+      })
+
+    // Set a timeout of 30 seconds to re-enable the button
+    setTimeout(() => {
+      setIsButtonDisabled(false)
+    }, 30000)
   }
 
   useEffect(() => {
@@ -185,6 +201,22 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             </div>
           ))}
         </div>
+        {isTyping && (
+          <div className="flex items-center mt-1">
+            <div className="mr-2 animate-bounce">
+              <div className="h-2 w-2 bg-primary rounded-full"></div>
+            </div>
+            <span className="text-gray-500">Stella is typing...</span>
+          </div>
+        )}
+        {isButtonDisabled && (
+          <div
+            className="flex items-center justify-center mt-4 text-gray-500"
+            title="This is a cooldown to prevent abuse."
+          >
+            Please wait for 30 seconds before sending another message.
+          </div>
+        )}
         <form
           className="flex items-end"
           onSubmit={(e) => {
@@ -212,11 +244,8 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             className="flex-grow rounded-md py-2 px-4 mr-2 focus:outline-none focus:ring w-full resize-none outline outline-gray-200 outline-1"
           />
           <button
-            disabled={isButtonDisabled}
             type="submit"
-            className={`bg-primary text-white px-4 py-2 rounded-md font-bold ${
-              isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className="bg-primary text-white px-4 py-2 rounded-md font-bold"
           >
             Send
           </button>

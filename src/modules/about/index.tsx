@@ -14,7 +14,7 @@ const About = () => {
         Our History
       </h2>
       <p className="text-base leading-7 text-gray-600 mb-5">
-        BildeoPC was founded in 2005 by John Smith, a computer enthusiast who
+        BildeoPC was founded in 2005 by myself, a computer enthusiast who
         saw a need for a more convenient and reliable way to purchase computer
         parts online. Over the years, we have grown from a small startup to a
         thriving business with thousands of satisfied customers.

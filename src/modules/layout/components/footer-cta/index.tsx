@@ -5,8 +5,8 @@ import Image from "next/image"
 const FooterCTA = () => {
   const router = useRouter();
   
-  if (router.pathname === "/buildpc") {
-    return null; // Return null to hide the component if the path is /buildpc
+  if (router.pathname === "/buildpc" || router.pathname === "/customize") {
+    return null; // Return null to hide the component if the path is /buildpc or /customize
   }
   
   return (

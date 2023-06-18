@@ -212,9 +212,9 @@ const PartsComponent = () => {
     <>
       <div className="p-4 flex flex-row justify-between">
         <div>
-          <h1 className="text-4xl font-bold mb-2">Customize your Build</h1>
+          <h1 className="text-4xl font-bold mb-2">Personalize Your Build</h1>
           <p className="text-lg text-gray-500">
-            Make minor adjustments to finalize your build.
+            Make Final Tweaks to Refine Your Build.
           </p>
         </div>
         <div className="flex flex-col justify-center content-center pr-4">
@@ -391,7 +391,7 @@ const PartsComponent = () => {
         <div className="p-3 w-full lg:w-1/3 ">
           <h3 className="p-2 text-xl font-bold">Your Current Build</h3>
           <h3 className="pb-1 pl-2 text-sm font-bold">
-            Select a part to replace
+            Choose a Part to Replace
           </h3>
           <div className="p-3 min-w-min">
             <PartSelector
@@ -403,7 +403,9 @@ const PartsComponent = () => {
         </div>
         {selectedPart != "None" && (
           <div className="p-3 w-full lg:w-1/3">
-            <h3 className="p-3 text-xl font-bold">Select a Part to replace</h3>
+            <h3 className="p-3 text-xl font-bold">
+              Pick a Part for Replacement
+            </h3>
             <PartsList
               selectedPart={selectedPart}
               parts={parts}

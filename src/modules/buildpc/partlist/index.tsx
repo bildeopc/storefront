@@ -233,6 +233,9 @@ const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
       </div>
       <div className="mt-5">
         <div className="p-2 flex flex-row justify-end">
+          <a className="bg-white py-2 px-10 text-gray-900">
+            Add to Cart on the next page
+          </a>
           <Link
             href={{
               pathname: "/customize",
