@@ -50,13 +50,17 @@ const BuildPC = () => {
                 setAiResData={setAiResData}
               />
               <div className="pb-10 pt-3 flex flex-row transition duration-200 ease-in">
-                <input
-                  type="checkbox"
-                  className="toggle-checkbox block w-6 h-6 rounded-full bg-white border-4 cursor-pointer"
-                  checked={customslider}
+                <div
+                  className="flex flex-row cursor-pointer"
                   onClick={handleToggle}
-                />
-                <p className="ml-3">Fine-Tuning</p>
+                >
+                  <input
+                    type="checkbox"
+                    className="toggle-checkbox block w-6 h-6 rounded-full bg-white border-4 cursor-pointer"
+                    checked={customslider}
+                  />
+                  <p className="ml-3">Fine-Tuning</p>
+                </div>
               </div>
             </div>
           </div>

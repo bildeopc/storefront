@@ -45,13 +45,43 @@ type ChatProps = {
   setAiResData: React.Dispatch<React.SetStateAction<AIresType>>
 }
 
+const SUGGESTIONS = [
+  "A good Valorant PC",
+  "Something for Editing",
+  "Light Gaming",
+  "The best money can buy",
+  "Recommended for a budget",
+  "Good for downloading movies and light gaming",
+  "Just for web browsing",
+  "Must run AAA games at high FPS",
+  "Cheap and enough for Valorant",
+  "Ideal for graphic design work",
+  "Gaming PC with RGB lighting",
+  "Perfect for streaming and content creation",
+  "High-performance workstation for professionals",
+  "Budget-friendly PC for students",
+  "Compact and portable gaming setup",
+  "Powerful gaming rig with liquid cooling",
+  "Versatile PC for work and play",
+  "VR-ready PC for immersive gaming experiences",
+  "All-in-one desktop for space-saving convenience",
+  "Entry-level gaming PC with upgradability options",
+]
+
 const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const chatContainerRef = useRef<HTMLInputElement>(null)
   const [cooldownTime, setCooldownTime] = useState(0)
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const [value, setValue] = useState("")
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
-  const [isTyping, setIsTyping] = useState(false)
+  const [isTyping, setIsTyping] = useState(true)
+  const [suggestionList, setSuggestionList] = useState<typeof SUGGESTIONS>([])
+
+  const getRandomSuggestions = () => {
+    const shuffledSuggestions = SUGGESTIONS.sort(() => 0.5 - Math.random())
+    const selectedSuggestions = shuffledSuggestions.slice(0, 3)
+    setSuggestionList(selectedSuggestions)
+  }
 
   useAutoTextbox(textAreaRef.current, value)
   const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,6 +90,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   }
 
   useEffect(() => {
+    getRandomSuggestions()
     const storedCooldownTime = localStorage.getItem("cooldownTime")
     if (storedCooldownTime) {
       const storedTime = parseInt(storedCooldownTime)
@@ -161,6 +192,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   }
 
   useEffect(() => {
+    getRandomSuggestions()
     // Scroll to the bottom of the chat container when new messages are added
     const chatContainer = chatContainerRef.current
     if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight
@@ -206,7 +238,12 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             <div className="mr-2 animate-bounce">
               <div className="h-2 w-2 bg-primary rounded-full"></div>
             </div>
-            <span className="text-gray-500">Stella is typing...</span>
+            <span className="text-gray-500">Stella is typing</span>
+            <div className={styles.typing}>
+              <div className={styles.typing__dot}></div>
+              <div className={styles.typing__dot}></div>
+              <div className={styles.typing__dot}></div>
+            </div>
           </div>
         )}
         {isButtonDisabled && (
@@ -241,7 +278,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             ref={textAreaRef}
             rows={1}
             onKeyDown={handleTextareaKeyDown}
-            className="flex-grow rounded-md py-2 px-4 mr-2 focus:outline-none focus:ring w-full resize-none outline outline-gray-200 outline-1"
+            className="flex-grow rounded-md py-2 px-4 mr-2 mt-1 focus:outline-none focus:ring w-full resize-none outline outline-gray-200 outline-1"
           />
           <button
             type="submit"
@@ -250,6 +287,37 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
             Send
           </button>
         </form>
+        <div className={styles.suggestScroll}>
+          {suggestionList.map((suggestion) => (
+            <div
+              onClick={() => {
+                setValue(suggestion)
+              }}
+              key={suggestion}
+              className="border-gray-200 border-2 border-solid rounded-md p-1 px-2 mr-2 cursor-pointer hover:bg-gray-200 text-gray-500 hover:text-gray-900"
+            >
+              <p className=" whitespace-nowrap">{suggestion}</p>
+            </div>
+          ))}
+          <div
+            onClick={() => {
+              getRandomSuggestions()
+            }}
+            className="border-gray-200 border-2 border-solid rounded-md p-1 px-2 mr-2 cursor-pointer hover:bg-gray-200 text-gray-500 hover:text-gray-900"
+          >
+            <svg
+              className="w-5 h-5 inline-block"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M5 3H3v18h18V3H5zm14 2v14H5V5h14zM9 7H7v2h2V7zm6 0h2v2h-2V7zm-6 8H7v2h2v-2zm6 0h2v2h-2v-2zm-2-4h-2v2h2v-2z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   )
