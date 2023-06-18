@@ -74,7 +74,7 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
   const [value, setValue] = useState("")
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
-  const [isTyping, setIsTyping] = useState(true)
+  const [isTyping, setIsTyping] = useState(false)
   const [suggestionList, setSuggestionList] = useState<typeof SUGGESTIONS>([])
 
   const getRandomSuggestions = () => {
