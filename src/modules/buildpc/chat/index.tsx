@@ -43,6 +43,8 @@ type ChatProps = {
   messages: Message[]
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>
   setAiResData: React.Dispatch<React.SetStateAction<AIresType>>
+  seconds: number
+  setSeconds: React.Dispatch<React.SetStateAction<number>>
 }
 
 const SUGGESTIONS = [
@@ -68,7 +70,13 @@ const SUGGESTIONS = [
   "Entry-level gaming PC with upgradability options",
 ]
 
-const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
+const Chat = ({
+  messages,
+  setMessages,
+  setAiResData,
+  seconds,
+  setSeconds,
+}: ChatProps) => {
   const chatContainerRef = useRef<HTMLInputElement>(null)
   const [cooldownTime, setCooldownTime] = useState(0)
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
@@ -76,18 +84,6 @@ const Chat = ({ messages, setMessages, setAiResData }: ChatProps) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   const [isTyping, setIsTyping] = useState(false)
   const [suggestionList, setSuggestionList] = useState<typeof SUGGESTIONS>([])
-
-  const [seconds, setSeconds] = useState(0)
-
-  useEffect(() => {
-    if (seconds > 0) {
-      const timer = setInterval(
-        () => setSeconds((prevSeconds) => prevSeconds - 1),
-        1000
-      )
-      return () => clearInterval(timer)
-    }
-  }, [seconds])
 
   const getRandomSuggestions = () => {
     const shuffledSuggestions = SUGGESTIONS.sort(() => 0.5 - Math.random())

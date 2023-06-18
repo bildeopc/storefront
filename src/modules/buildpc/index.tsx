@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Evaluate from "@modules/buildpc/evaluation"
 import Chat from "@modules/buildpc/chat"
 import Partlist, { AIresType } from "@modules/buildpc/partlist"
@@ -30,6 +30,19 @@ const BuildPC = () => {
     setcustomslider(!customslider)
   }
 
+  // timer
+  const [seconds, setSeconds] = useState(0)
+
+  useEffect(() => {
+    if (seconds > 0) {
+      const timer = setInterval(
+        () => setSeconds((prevSeconds) => prevSeconds - 1),
+        1000
+      )
+      return () => clearInterval(timer)
+    }
+  }, [seconds])
+
   return (
     <>
       <div className="p-6">
@@ -48,6 +61,8 @@ const BuildPC = () => {
                 messages={messages}
                 setMessages={setMessages}
                 setAiResData={setAiResData}
+                seconds={seconds}
+                setSeconds={setSeconds}
               />
               <div className="pb-10 pt-3 flex flex-row transition duration-200 ease-in">
                 <div
@@ -70,6 +85,8 @@ const BuildPC = () => {
               messages={messages}
               setMessages={setMessages}
               setAiResData={setAiResData}
+              seconds={seconds}
+              setSeconds={setSeconds}
             />
           </div>
         )}
