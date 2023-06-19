@@ -9,7 +9,7 @@
 </h1>
 
 <p align="center">
-Medusa is an open-source headless commerce engine that enables developers to create amazing digital commerce experiences.
+BildeoPC is a open-sourced concept of AI-chatbot personalization for PC buidling and Shopping all in one experience
 </p>
 
 
@@ -20,7 +20,7 @@ Medusa is an open-source headless commerce engine that enables developers to cre
 
 ![next-starter](https://user-images.githubusercontent.com/45367945/182571697-a68c502f-5844-4eea-8735-7683f775ac8b.png)
 
-The Medusa Next.js Starter is built with:
+The storefron is built with:
 
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
