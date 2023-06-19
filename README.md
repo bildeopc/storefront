@@ -18,8 +18,6 @@ BildeoPC is a open-sourced concept of AI-chatbot personalization for PC buidling
 
 # Overview
 
-![next-starter](https://user-images.githubusercontent.com/45367945/182571697-a68c502f-5844-4eea-8735-7683f775ac8b.png)
-
 The storefron is built with:
 
 - [Next.js](https://nextjs.org/)
@@ -29,9 +27,6 @@ The storefron is built with:
 
 # Quickstart
 
-## Deploy in 5 minutes
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/medusajs/nextjs-starter-medusa)
 
 ## Setting up the environment variables
 
