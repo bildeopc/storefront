@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://www.medusajs.com">
-    <img alt="BildeoPC" src="https://cdn.discordapp.com/attachments/811231774327177326/1095026021654351974/BildeoPC_logo_2.png" width="100" />
+    <img alt="BildeoPC" src="https://cdn.discordapp.com/attachments/811231774327177326/1095026021654351974/BildeoPC_logo_2.png" width="600" />
   </a>
 </p>
 
 <h1 align="center">
-  Medusa Next.js Starter
+  BildeoPC: AI-Powered Personalized PC Shopping
 </h1>
 
 <p align="center">
