@@ -1,19 +1,3 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-    <img alt="BildeoPC" src="https://cdn.discordapp.com/attachments/811231774327177326/1095026021654351974/BildeoPC_logo_2.png" width="600" />
-  </a>
-</p>
-
-<h1 align="center">
-  BildeoPC: AI-Powered Personalized PC Shopping
-</h1>
-
-<p align="center">
-BildeoPC is a open-sourced concept of AI-chatbot personalization for PC buidling and Shopping all in one experience
-</p>
-
-
-
 > **Prerequisites**: To use the storefront you should have a Medusa server running locally on port 9000. Check out [medusa-starter-default](https://github.com/medusajs/medusa-starter-default) for a quick setup.
 
 # Overview
