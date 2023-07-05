@@ -50,7 +50,7 @@ type ChatProps = {
 const SUGGESTIONS = [
   "A good Valorant PC",
   "Something for Editing",
-  "Light Gaming",
+  "Light Gaming PC",
   "The best money can buy",
   "Recommended for a budget",
   "Good for downloading movies and light gaming",
@@ -62,12 +62,12 @@ const SUGGESTIONS = [
   "Perfect for streaming and content creation",
   "High-performance workstation for professionals",
   "Budget-friendly PC for students",
-  "Compact and portable gaming setup",
-  "Powerful gaming rig with liquid cooling",
+  "Gaming setup for kids",
+  "Powerful gaming rig",
   "Versatile PC for work and play",
-  "VR-ready PC for immersive gaming experiences",
-  "All-in-one desktop for space-saving convenience",
-  "Entry-level gaming PC with upgradability options",
+  "PC for immersive gaming experiences",
+  "A PC to store my K-Drama",
+  "A PC to do office work",
 ]
 
 const Chat = ({
