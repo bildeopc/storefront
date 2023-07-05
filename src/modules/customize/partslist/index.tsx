@@ -74,7 +74,11 @@ const PartsList: React.FC<PartSelectorProps> = ({
           part.variants[0]?.id === selectedpartObj?.variantID ? (
             <></>
           ) : (
-            <Productitem key={part.id} product={part} setParts={setParts} />
+            <Productitem
+              key={part.id}
+              product={part as any}
+              setParts={setParts}
+            />
           )
         )}
     </>

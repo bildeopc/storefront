@@ -3,7 +3,7 @@ import { Product, StoreGetProductsParams } from "@medusajs/medusa"
 
 const COL_LIMIT = 15
 
-const getFeaturedProducts = async (): Promise<Product[]> => {
+const getFeaturedProducts = async (): Promise<any> => {
   const payload = {} as Record<string, unknown>
 
   if (process.env.FEATURED_PRODUCTS) {

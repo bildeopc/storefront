@@ -43,7 +43,10 @@ const InfiniteProducts = ({ params }: InfiniteProductsType) => {
       }
     )
 
-  const previews = usePreviews({ pages: data?.pages, region: cart?.region })
+  const previews = usePreviews({
+    pages: data?.pages as any,
+    region: cart?.region,
+  })
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -68,7 +71,7 @@ const InfiniteProducts = ({ params }: InfiniteProductsType) => {
             </li>
           ))}
         {isFetchingNextPage &&
-          repeat(getNumberOfSkeletons(data?.pages)).map((index) => (
+          repeat(getNumberOfSkeletons(data?.pages as any)).map((index) => (
             <li key={index}>
               <SkeletonProductPreview />
             </li>

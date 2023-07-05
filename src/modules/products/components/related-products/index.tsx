@@ -46,7 +46,10 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
       }
     )
 
-  const previews = usePreviews({ pages: data?.pages, region: cart?.region })
+  const previews = usePreviews({
+    pages: data?.pages as any,
+    region: cart?.region,
+  })
 
   return (
     <div className="product-page-constraint">
@@ -73,7 +76,7 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
             </li>
           ))}
         {isFetchingNextPage &&
-          repeat(getNumberOfSkeletons(data?.pages)).map((index) => (
+          repeat(getNumberOfSkeletons(data?.pages as any)).map((index) => (
             <li key={index}>
               <SkeletonProductPreview />
             </li>

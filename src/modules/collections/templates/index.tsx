@@ -42,7 +42,7 @@ const CollectionTemplate: React.FC<CollectionTemplateProps> = ({
   )
 
   const previews = usePreviews({
-    pages: infiniteData?.pages,
+    pages: infiniteData?.pages as any[],
     region: cart?.region,
   })
 
@@ -72,11 +72,13 @@ const CollectionTemplate: React.FC<CollectionTemplateProps> = ({
             </li>
           ))}
         {isFetchingNextPage &&
-          repeat(getNumberOfSkeletons(infiniteData?.pages)).map((index) => (
-            <li key={index}>
-              <SkeletonProductPreview />
-            </li>
-          ))}
+          repeat(getNumberOfSkeletons(infiniteData?.pages as any)).map(
+            (index) => (
+              <li key={index}>
+                <SkeletonProductPreview />
+              </li>
+            )
+          )}
       </ul>
       <div
         className="py-16 flex justify-center items-center text-small-regular text-gray-700"

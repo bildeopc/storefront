@@ -56,7 +56,7 @@ const fetchFeaturedProducts = async (
       limit: 4,
       cart_id: cartId,
     })
-    .then(({ products }) => products)
+    .then(({ products }) => products as unknown as Product[])
     .catch((_) => [] as Product[])
 
   return products
