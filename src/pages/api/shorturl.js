@@ -5,8 +5,8 @@ export default async function handler(req, res) {
     // Process the POST request data as needed
     const data = req.body // Access the request body
 
-    const username = "iddin"
-    const password = "iddin123"
+    const username = process.env.URLSHORT_USERNAME
+    const password = process.env.URLSHORT_PASSWORD
 
     const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString(
       "base64"
