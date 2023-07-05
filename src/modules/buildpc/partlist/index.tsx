@@ -82,7 +82,14 @@ const fetchProduct = async ({
   // Use the Medusa client to list products matching the given type and collection IDs, and return the first product
   return await medusaClient.products
     .list({ type_id: [getPCPartTypeID(partRating)], collection_id: [pcpart] })
-    .then(({ products }) => products[0])
+    .then(({ products }) => {
+      if (products.length === 1) {
+        return products[0]
+      } else {
+        const randomIndex = Math.floor(Math.random() * products.length)
+        return products[randomIndex]
+      }
+    })
 }
 
 const Partlist = ({ airesponse }: { airesponse: AIresType }) => {
