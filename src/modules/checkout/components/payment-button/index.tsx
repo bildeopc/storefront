@@ -270,33 +270,17 @@ const GrapPaymentButton = ({
     }
   }, [stripe, elements])
 
-  useEffect(() => {
-    // Get the query parameters from the URL
-    const { payment_intent, payment_intent_client_secret, redirect_status } =
-      router.query
-
-    // Check if the required query parameter exists
-    if (
-      payment_intent &&
-      payment_intent_client_secret &&
-      redirect_status === "succeeded"
-    ) {
-      // Perform your desired action here
-      console.log("sucess")
-      onPaymentCompleted()
-      // router.push("/")
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query])
-
   const [submitting, setSubmitting] = useState(false)
 
   const handlePayment = () => {
     setSubmitting(true)
+    onPaymentCompleted()
     stripe?.confirmGrabPayPayment(session.data.client_secret as string, {
-      return_url: "https://www.bildeopc.com/checkout",
+      return_url:
+        "https://www.bildeopc.com/order/confirmed/order_01H4R7WEGPMADB78S5HPP17HS1",
+      // implement this when have time
+      // return_url: "https://www.bildeopc.com/grabpay",
     })
-
     setSubmitting(false)
   }
 
