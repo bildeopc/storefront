@@ -283,7 +283,8 @@ const GrapPaymentButton = ({
     ) {
       // Perform your desired action here
       console.log("sucess")
-      router.push("/")
+      onPaymentCompleted()
+      // router.push("/")
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
@@ -292,7 +293,6 @@ const GrapPaymentButton = ({
 
   const handlePayment = () => {
     setSubmitting(true)
-    onPaymentCompleted()
     stripe?.confirmGrabPayPayment(session.data.client_secret as string, {
       return_url: "https://www.bildeopc.com/checkout",
     })
