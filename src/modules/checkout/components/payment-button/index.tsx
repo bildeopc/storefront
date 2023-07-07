@@ -4,9 +4,11 @@ import Button from "@modules/common/components/button"
 import Spinner from "@modules/common/icons/spinner"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
-import { useElements, useStripe } from "@stripe/react-stripe-js"
+import { Elements, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useCart } from "medusa-react"
 import React, { useEffect, useState } from "react"
+import { loadStripe } from "@stripe/stripe-js"
+import { useRouter } from "next/router"
 
 type PaymentButtonProps = {
   paymentSession?: PaymentSession | null
@@ -15,6 +17,7 @@ type PaymentButtonProps = {
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || "")
 
   useEffect(() => {
     setNotReady(true)
@@ -49,6 +52,12 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
       )
     case "manual":
       return <ManualTestPaymentButton notReady={notReady} />
+    case "grab-payment":
+      return (
+        <Elements stripe={stripePromise}>
+          <GrapPaymentButton session={paymentSession} notReady={notReady} />
+        </Elements>
+      )
     case "paypal":
       return (
         <PayPalPaymentButton notReady={notReady} session={paymentSession} />
@@ -235,6 +244,67 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
 
   return (
     <Button disabled={submitting || notReady} onClick={handlePayment}>
+      {submitting ? <Spinner /> : "Checkout"}
+    </Button>
+  )
+}
+
+const GrapPaymentButton = ({
+  session,
+  notReady,
+}: {
+  session: PaymentSession
+  notReady: boolean
+}) => {
+  const [disabled, setDisabled] = useState(false)
+  const router = useRouter()
+  const stripe = useStripe()
+  const elements = useElements()
+  const { onPaymentCompleted } = useCheckout()
+
+  useEffect(() => {
+    if (!stripe || !elements) {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [stripe, elements])
+
+  useEffect(() => {
+    // Get the query parameters from the URL
+    const { payment_intent, payment_intent_client_secret, redirect_status } =
+      router.query
+
+    // Check if the required query parameter exists
+    if (
+      payment_intent &&
+      payment_intent_client_secret &&
+      redirect_status === "succeeded"
+    ) {
+      // Perform your desired action here
+      console.log("sucess")
+      onPaymentCompleted()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query])
+
+  const [submitting, setSubmitting] = useState(false)
+
+  const handlePayment = () => {
+    setSubmitting(true)
+
+    stripe?.confirmGrabPayPayment(session.data.client_secret as string, {
+      return_url: "http://localhost:8001/checkout",
+    })
+
+    setSubmitting(false)
+  }
+
+  return (
+    <Button
+      disabled={disabled || submitting || notReady}
+      onClick={handlePayment}
+    >
       {submitting ? <Spinner /> : "Checkout"}
     </Button>
   )

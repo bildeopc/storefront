@@ -17,9 +17,9 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     title: "Credit card",
     description: "Secure payment with credit card",
   },
-  "stripe-ideal": {
-    title: "iDEAL",
-    description: "Secure payment with iDEAL",
+  "grab-payment": {
+    title: "GrabPay",
+    description: "Secure payment with GrabPay by Grab",
   },
   paypal: {
     title: "PayPal",
@@ -27,7 +27,7 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
   },
   manual: {
     title: "Test payment",
-    description: "Test payment using medusa-payment-manual",
+    description: "Test payment using manual capture",
   },
 }
 
@@ -84,7 +84,7 @@ const PaymentElement = ({
       )
     case "manual":
       // We only display the test payment form if we are in a development environment
-      return process.env.NODE_ENV === "development" ? <PaymentTest /> : null
+      return <PaymentTest />
     default:
       return null
   }
