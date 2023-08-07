@@ -1,17 +1,22 @@
+// Import necessary dependencies and types from external libraries
 import { medusaClient } from "@lib/config"
 import { Product, StoreGetProductsParams } from "@medusajs/medusa"
 
+// Set a constant for the collection limit
 const COL_LIMIT = 15
 
+// Function to get featured products
 const getFeaturedProducts = async (): Promise<any> => {
   const payload = {} as Record<string, unknown>
 
+  // Check if a specific product is defined in environment variables
   if (process.env.FEATURED_PRODUCTS) {
     payload.id = process.env.FEATURED_PRODUCTS as string
   } else {
     payload.limit = 3
   }
 
+  // Fetch the list of products using the Medusa client
   const products = await medusaClient.products
     .list(payload)
     .then(({ products }) => products)
@@ -20,10 +25,11 @@ const getFeaturedProducts = async (): Promise<any> => {
   return products
 }
 
-// get global data used in header and footer
+// Function to get global data used in header and footer
 const getGlobalData = async () => {
   let totalCount = 0
 
+  // Fetch collections up to COL_LIMIT and get count
   const collections = await medusaClient.collections
     .list({ limit: COL_LIMIT })
     .then(({ collections, count }) => {
@@ -32,18 +38,20 @@ const getGlobalData = async () => {
     })
     .catch((_) => undefined)
 
+  // Fetch featured products
   const featuredProducts = await getFeaturedProducts()
 
   return {
     navData: {
+      // Provide information about collections and featured products
       hasMoreCollections: totalCount > COL_LIMIT,
-      collections:
-        collections?.map((c) => ({ id: c.id, title: c.title })) || [],
+      collections: collections?.map((c) => ({ id: c.id, title: c.title })) || [],
       featuredProducts,
     },
   }
 }
 
+// Function to get site data
 export const getSiteData = async () => {
   const globalData = await getGlobalData()
 
@@ -52,8 +60,9 @@ export const getSiteData = async () => {
   }
 }
 
-// get data for a specific product, as well as global data
+// Function to get data for a specific product
 export const getProductData = async (handle: string) => {
+  // Fetch product list using the Medusa client
   const data = await medusaClient.products
     .list({ handle })
     .then(({ products }) => products)
@@ -71,7 +80,9 @@ export const getProductData = async (handle: string) => {
   }
 }
 
+// Function to get initial products for a collection
 const getInitialProducts = async (collectionId: string) => {
+  // Fetch a limited number of products for the specified collection
   const result = await medusaClient.products
     .list({ collection_id: [collectionId], limit: 10 })
     .then(({ products, count }) => {
@@ -86,10 +97,11 @@ const getInitialProducts = async (collectionId: string) => {
   return result
 }
 
-// get data for a specific collection, as well as global data
+// Function to get data for a specific collection
 export const getCollectionData = async (id: string) => {
   const siteData = await getGlobalData()
 
+  // Fetch collection data using the Medusa client
   const data = await medusaClient.collections
     .retrieve(id)
     .then(({ collection }) => collection)
@@ -99,6 +111,7 @@ export const getCollectionData = async (id: string) => {
     throw new Error(`Collection with handle ${id} not found`)
   }
 
+  // Fetch initial products for the collection
   const additionalData = await getInitialProducts(id)
 
   return {
@@ -110,15 +123,18 @@ export const getCollectionData = async (id: string) => {
   }
 }
 
+// Define type for parameters used in fetching a list of products
 type FetchProductListParams = {
   pageParam?: number
   queryParams: StoreGetProductsParams
 }
 
+// Function to fetch a list of products
 export const fetchProductsList = async ({
   pageParam = 0,
   queryParams,
 }: FetchProductListParams) => {
+  // Fetch products using the Medusa client with pagination and query parameters
   const { products, count, offset } = await medusaClient.products.list({
     limit: 12,
     offset: pageParam,

@@ -277,7 +277,7 @@ const GrapPaymentButton = ({
     onPaymentCompleted()
     stripe?.confirmGrabPayPayment(session.data.client_secret as string, {
       return_url:
-        "https://www.bildeopc.com/order/confirmed/order_01H4R7WEGPMADB78S5HPP17HS1",
+        "https://www.bildeopc.com/order/confirmed/order_01H78JXPQNTYC6EAHG91PD2MDN",
       // implement this when have time
       // return_url: "https://www.bildeopc.com/grabpay",
     })
