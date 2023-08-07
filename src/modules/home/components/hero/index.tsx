@@ -6,10 +6,11 @@ const Hero = () => {
     <div className="h-[90vh] w-full relative">
       <div className="text-white absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:text-left small:justify-end small:items-start small:p-32">
         <h1 className="text-2xl-semi mb-4 drop-shadow-md shadow-black">
-          Build your Dream PC with a simple chat!
+          Empower Your PC Build Journey with AI
         </h1>
         <p className="text-base-regular max-w-[32rem] mb-6 drop-shadow-md shadow-black">
-          Stella can suggest the perfect PC for you with just a simple message
+          Discover the future of custom PC building with our revolutionary AI chatbot. Effortlessly design, customize, and order your dream computer. 
+          Experience hassle-free PC building like never before.
         </p>
         <UnderlineLink href="/buildpc">START BUILD</UnderlineLink>
       </div>
@@ -21,7 +22,7 @@ const Hero = () => {
         quality={90}
         objectFit="cover"
         alt="Photo of a gaming desktop"
-        className="absolute inset-0 brightness-50"
+        className="absolute inset-0 brightness-[0.4]"
         draggable="false"
       />
     </div>

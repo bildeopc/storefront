@@ -10,7 +10,7 @@ const Home: NextPageWithLayout = () => {
     <>
       <Head
         title="Home"
-        description="Shop all available models only at the BildeoPC. Local Shipping. Secure Payment."
+        description="Shop all available parts only at the BildeoPC. Local Shipping. Secure Payment."
       />
       <Hero />
       <FeaturedProducts />
