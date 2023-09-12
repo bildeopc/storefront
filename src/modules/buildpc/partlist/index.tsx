@@ -36,12 +36,12 @@ export const PartIdLabels: Record<PartId, string> = {
 
 // Define an object containing collection IDs for each PC part type
 export const partList = {
-  CPU: "pcol_01GXZM5QATSXZC9GKDJ7RM4Y9V",
-  "Storage size": "pcol_01GXZM7TGB0EY5SD369Q0E27QG",
-  RAM: "pcol_01GXZM6ZZCWRA5Y3J0J8YZG6QT",
-  PSU: "pcol_01GXZM63F3MB7CM0572YW5MWEC",
-  GPU: "pcol_01GXRCDGWMF7ENXXMQMVVSEAHN",
-  Mobo: "pcol_01GY1VSTWA3BME51J1RQT12DTV",
+  CPU: "pcol_01H9WGCZPMW7AZB76DKAYXGM9D",
+  "Storage size": "pcol_01HA3TEJQMTPM6S45339C14FNJ",
+  RAM: "pcol_01HA3TEV91NEHES7W9QV77MN5M",
+  PSU: "pcol_01HA3TF788TJBDN5K8QQ0RN1X2",
+  GPU: "pcol_01HA3TFE00HW65X2355CV46T3P",
+  Mobo: "pcol_01HA3TFTE4XSVFS6PVKC4M2B4E",
 }
 
 // Define a function to get the PC part type ID based on a given rating, 1 = low end, 2 = mid end, 3 = high end
@@ -49,9 +49,9 @@ function getPCPartTypeID(pcPartType: 0 | 1 | 2 | 3): string {
   if (pcPartType === 0) return ""
 
   const partTypeList = {
-    1: "ptyp_01GY0BPNTNMGB92ZSPHGBQS2X2",
-    2: "ptyp_01GY0BYZNYTXFXBWXC6HK7CY66",
-    3: "ptyp_01GXZNWSZ81FEN6T6YKE40ZK0C",
+    1: "ptyp_01HA3TPY8TSM8GQ7AS61WVQX3J",
+    2: "ptyp_01HA3TQH126J6W4PMB115PSN6Q",
+    3: "ptyp_01HA3TR6FN6ZPV7VV0XQE51PBH",
   }
 
   // Throw an error if an invalid rating is provided
