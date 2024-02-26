@@ -15,13 +15,13 @@ const BuildPC = () => {
   ])
 
   const [aiResData, setAiResData] = useState<AIresType>({
-    CPU: 0,
+    CPU: 1,
     GPU: 0,
     "Storage size": 0,
     PSU: 0,
     RAM: 0,
     Mobo: 0,
-    comments: "",
+    comments: "AI currently Down",
   })
 
   const [customslider, setcustomslider] = useState(false)
